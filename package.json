@@ -10,7 +10,9 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
-    "selftest": "node src/index.js --selftest"
+    "setup": "node scripts/setup.mjs",
+    "selftest": "node src/index.js --selftest",
+    "docs": "node scripts/generate-docs.mjs"
   },
   "keywords": [
     "whatsapp-bot",

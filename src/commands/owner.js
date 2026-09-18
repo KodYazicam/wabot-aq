@@ -1,6 +1,6 @@
 /** Owner-only commands: bans, premium, broadcast, shell, group join/leave. */
 import { exec } from 'node:child_process'
-import { mention, isUrl } from '../lib/utils.js'
+import { mention, isUrl, redactSecrets } from '../lib/utils.js'
 
 function run (cmd, timeout = 30_000) {
   return new Promise((resolve) => {
@@ -158,10 +158,11 @@ export const commands = [
     permission: 'rowner',
     cooldown: 5,
     async run (ctx) {
+      if (ctx.config.safeMode) return ctx.reply(ctx.t('owner.execDisabled'))
       if (!ctx.text) return ctx.reply(ctx.t('owner.execUsage', { prefix: ctx.usedPrefix }))
       await ctx.m.react('⏳')
       const { err, stdout, stderr } = await run(ctx.text)
-      const output = [stdout, stderr, err].filter(Boolean).join('\n').trim()
+      const output = redactSecrets([stdout, stderr, err].filter(Boolean).join('\n').trim())
       const header = err ? '⚠️' : '✅'
       const body = (output || ctx.t('owner.execNoOutput')).slice(0, 3000)
       await ctx.reply(`${header}\n\`\`\`\n${body}\n\`\`\``)

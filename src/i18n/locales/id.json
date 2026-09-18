@@ -24,7 +24,8 @@
     "afkMention": "💤 {user} sedang AFK! (pergi selama {time})\n📝 Alasan: {reason}",
     "antideleteNote": "{user} menghapus pesan:\n_diselamatkan oleh fitur antidelete_",
     "antilinkDeleted": "🔗 Link undangan grup tidak boleh dibagikan di grup ini! (pesan dihapus)",
-    "antilinkNoPerm": "🔗 Link undangan grup tidak boleh dibagikan di grup ini!"
+    "antilinkNoPerm": "🔗 Link undangan grup tidak boleh dibagikan di grup ini!",
+    "flood": "🌊 Terlalu banyak perintah! Istirahat 60 detik."
   },
   "events": {
     "welcomeDefault": "Selamat datang @user!\nKamu bergabung di *@subject* 🎉\n\n@desc",
@@ -313,6 +314,7 @@
     "bcStart": "📣 Menyiarkan ke {count} chat…",
     "bcDone": "✅ Siaran selesai: {sent}/{total} terkirim.",
     "execUsage": "⌨️ Cara pakai: *{prefix}exec <perintah>* — dijalankan di server bot. Hati-hati!",
+    "execDisabled": "🔒 Perintah ini dimatikan di server ini (SAFE_MODE aktif).",
     "execNoOutput": "(tidak ada output)",
     "joinUsage": "⌨️ Cara pakai: *{prefix}join <link undangan grup>*",
     "joinGone": "⚠️ Link undangan ini sudah dicabut.",

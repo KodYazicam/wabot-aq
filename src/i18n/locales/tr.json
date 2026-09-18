@@ -24,7 +24,8 @@
     "afkMention": "💤 {user} şu an AFK! ({time} önce ayrıldı)\n📝 Sebep: {reason}",
     "antideleteNote": "{user} bir mesajı sildi:\n_antidelete özelliğiyle kurtarıldı_",
     "antilinkDeleted": "🔗 Bu grupta davet linki paylaşmak yasak! (mesaj silindi)",
-    "antilinkNoPerm": "🔗 Bu grupta davet linki paylaşmak yasak!"
+    "antilinkNoPerm": "🔗 Bu grupta davet linki paylaşmak yasak!",
+    "flood": "🌊 Çok fazla komut! 60 saniye mola ver."
   },
   "events": {
     "welcomeDefault": "Hoş geldin @user!\n*@subject* grubuna katıldın 🎉\n\n@desc",
@@ -313,6 +314,7 @@
     "bcStart": "📣 {count} sohbete yayınlanıyor…",
     "bcDone": "✅ Yayın tamamlandı: {sent}/{total} iletildi.",
     "execUsage": "⌨️ Kullanım: *{prefix}exec <komut>* — botun çalıştığı sunucuda çalışır. Dikkatli kullan!",
+    "execDisabled": "🔒 Bu komut bu sunucuda devre dışı (SAFE_MODE açık).",
     "execNoOutput": "(çıktı yok)",
     "joinUsage": "⌨️ Kullanım: *{prefix}join <grup davet linki>*",
     "joinGone": "⚠️ Bu davet linki geçersiz kılınmış.",

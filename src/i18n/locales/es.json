@@ -24,7 +24,8 @@
     "afkMention": "💤 ¡{user} está AFK! (ausente durante {time})\n📝 Motivo: {reason}",
     "antideleteNote": "{user} eliminó un mensaje:\n_recuperado por la función antidelete_",
     "antilinkDeleted": "🔗 ¡No se permiten enlaces de invitación en este grupo! (mensaje eliminado)",
-    "antilinkNoPerm": "🔗 ¡No se permiten enlaces de invitación en este grupo!"
+    "antilinkNoPerm": "🔗 ¡No se permiten enlaces de invitación en este grupo!",
+    "flood": "🌊 ¡Demasiados comandos! Tómate un descanso de 60 segundos."
   },
   "events": {
     "welcomeDefault": "¡Bienvenido @user!\nTe uniste a *@subject* 🎉\n\n@desc",
@@ -313,6 +314,7 @@
     "bcStart": "📣 Difundiendo a {count} chats…",
     "bcDone": "✅ Difusión terminada: {sent}/{total} entregados.",
     "execUsage": "⌨️ Uso: *{prefix}exec <comando>* — se ejecuta en el servidor del bot. ¡Úsalo con cuidado!",
+    "execDisabled": "🔒 Este comando está desactivado en este servidor (SAFE_MODE activado).",
     "execNoOutput": "(sin salida)",
     "joinUsage": "⌨️ Uso: *{prefix}join <enlace de invitación>*",
     "joinGone": "⚠️ Este enlace de invitación ya fue revocado.",

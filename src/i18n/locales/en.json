@@ -24,7 +24,8 @@
     "afkMention": "💤 {user} is AFK! (away for {time})\n📝 Reason: {reason}",
     "antideleteNote": "{user} deleted a message:\n_recovered by the antidelete feature_",
     "antilinkDeleted": "🔗 Group invite links are not allowed in this group! (message deleted)",
-    "antilinkNoPerm": "🔗 Group invite links are not allowed in this group!"
+    "antilinkNoPerm": "🔗 Group invite links are not allowed in this group!",
+    "flood": "🌊 Whoa, too many commands! Take a 60-second break."
   },
   "events": {
     "welcomeDefault": "Welcome @user!\nYou joined *@subject* 🎉\n\n@desc",
@@ -313,6 +314,7 @@
     "bcStart": "📣 Broadcasting to {count} chats…",
     "bcDone": "✅ Broadcast finished: {sent}/{total} delivered.",
     "execUsage": "⌨️ Usage: *{prefix}exec <command>* — runs on the bot host. Use with care!",
+    "execDisabled": "🔒 This command is disabled on this host (SAFE_MODE is enabled).",
     "execNoOutput": "(no output)",
     "joinUsage": "⌨️ Usage: *{prefix}join <group invite link>*",
     "joinGone": "⚠️ This invite link has already been revoked.",

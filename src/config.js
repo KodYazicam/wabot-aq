@@ -68,8 +68,13 @@ export const config = {
 
   webServer: {
     enabled: argv.server || envBool('WEB_SERVER', false),
-    port: envInt('WEB_PORT', 3000)
+    port: envInt('WEB_PORT', 3000),
+    host: env('WEB_HOST', '0.0.0.0')
   },
+
+  // SAFE_MODE=true disables host-level features (.exec) — recommended
+  // when running on shared infrastructure.
+  safeMode: envBool('SAFE_MODE', false),
 
   ai: {
     apiKey: env('AI_API_KEY', ''),

@@ -15,6 +15,7 @@ import makeWASocket, {
 } from 'baileys'
 import { createRequire } from 'node:module'
 import http from 'node:http'
+import fs from 'node:fs'
 import path from 'node:path'
 import QRCode from 'qrcode'
 import { createLogger } from '../lib/logger.js'
@@ -105,7 +106,8 @@ function startWebServer (port, logger, locale) {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
     res.end(page)
   })
-  server.listen(port, () => logger.info(`🌐 web panel: http://localhost:${port}`))
+  server.listen(port, config.webServer.host || '0.0.0.0', () =>
+    logger.info(`🌐 web panel: http://localhost:${port} (bound to ${config.webServer.host || '0.0.0.0'})`))
   return server
 }
 
@@ -122,6 +124,8 @@ export function startConnection (deps) {
 
   const connect = async () => {
     const { state: authState, saveCreds } = await useMultiFileAuthState(sessionDir)
+    // protect session credentials from other users on this host
+    try { fs.chmodSync(sessionDir, 0o700) } catch { /* not supported — ignore */ }
     const { version } = await fetchLatestBaileysVersion().catch(() => ({ version: undefined }))
 
     const sock = makeWASocket({

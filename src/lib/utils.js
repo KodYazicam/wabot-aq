@@ -1,4 +1,5 @@
-/** Shared helpers: formatting, durations, networking, safe math. */
+/** Shared helpers: formatting, durations, safe networking, math, privacy. */
+import dns from 'node:dns/promises'
 
 export const isUrl = (text) =>
   /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/i.test(text)
@@ -64,12 +65,61 @@ export async function fetchJson (url, opts = {}, timeout = 15_000) {
 }
 
 export async function fetchBuffer (url, timeout = 60_000) {
+  await assertSafeUrl(url)
   const res = await fetch(url, {
     signal: AbortSignal.timeout(timeout),
     headers: { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' }
   })
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   return Buffer.from(await res.arrayBuffer())
+}
+
+// ---------------------------------------------------------------------------
+// SSRF protection: block requests to internal/reserved addresses
+// (localhost, LAN, cloud metadata endpoints…) — important because command
+// arguments can carry user-supplied URLs.
+// ---------------------------------------------------------------------------
+function isPrivateIp (ip) {
+  if (!ip) return true
+  // IPv6 loopback / link-local / unique-local
+  if (ip === '::1' || ip === '::' || ip === '0.0.0.0') return true
+  const v6 = ip.toLowerCase()
+  if (v6.startsWith('fe80:') || v6.startsWith('fc') || v6.startsWith('fd')) return true
+  const m = v6.match(/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/)
+  if (!m) return false
+  const [a, b] = [Number(m[1]), Number(m[2])]
+  return a === 127 || a === 0 || a === 10 ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 168) ||
+    (a === 169 && b === 254) // AWS/GCP/Azure metadata
+}
+
+/** Validate a user-supplied URL: http(s) only, host resolves to a public IP. */
+export async function assertSafeUrl (url) {
+  let u
+  try {
+    u = new URL(url)
+  } catch {
+    throw new Error('invalid URL')
+  }
+  if (!/^https?:$/.test(u.protocol)) throw new Error('only http(s) URLs are allowed')
+  const host = u.hostname.replace(/^\[|\]$/g, '')
+  const isLiteralIp = /^(\d+\.){3}\d+$/.test(host) || host.includes(':')
+  const ips = isLiteralIp
+    ? [host]
+    : (await dns.lookup(host, { all: true }).catch(() => { throw new Error('host could not be resolved') })).map(r => r.address)
+  if (ips.some(isPrivateIp)) throw new Error('internal addresses are blocked')
+  return u
+}
+
+// ---------------------------------------------------------------------------
+// Privacy: redact secrets before showing error text to users/logs
+// ---------------------------------------------------------------------------
+export function redactSecrets (text) {
+  return String(text)
+    .replace(/(sk-[A-Za-z0-9_-]{8,}|ghp_[A-Za-z0-9]{15,}|gho_[A-Za-z0-9]{15,}|xox[baprs]-[A-Za-z0-9-]{10,})/g, '[REDACTED]')
+    .replace(/(Bearer\s+)[A-Za-z0-9._-]{10,}/gi, '$1[REDACTED]')
+    .replace(/\b((?:api[_-]?key|token|password|secret|authorization)(?:["'\s:=]+))([^\s"',]{6,})/gi, '$1[REDACTED]')
 }
 
 // ---------------------------------------------------------------------------

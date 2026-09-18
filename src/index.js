@@ -13,6 +13,17 @@ import { startConnection } from './core/connection.js'
 import { attachHandler } from './core/handler.js'
 import { attachEvents } from './core/events.js'
 import { checkFfmpeg } from './lib/media.js'
+import { hasYtDlp } from './lib/youtube.js'
+
+// ---------------------------------------------------------------------------
+// Runtime guard: fail fast with a clear message on old Node versions
+// ---------------------------------------------------------------------------
+const [nodeMajor, nodeMinor] = process.versions.node.split('.').map(Number)
+if (nodeMajor < 18 || (nodeMajor === 18 && nodeMinor < 17)) {
+  console.error(`❌ Node.js ${process.versions.node} is too old. wabot-aq needs Node ≥ 18.17.`)
+  console.error('   Install a current version: https://nodejs.org/en/download')
+  process.exit(1)
+}
 
 const logger = createLogger('bot', config.logLevel)
 
@@ -96,6 +107,7 @@ async function selfTest () {
     : 'ℹ️ no AI key — set AI_API_KEY in .env to enable the .ai command')
 
   console.log(`\n${ok ? '🎉' : '⚠️'} self-test finished ${ok ? 'successfully' : 'with issues'}.`)
+  console.log(`   First time here? Run the setup wizard: npm run setup`)
   console.log('   Start the bot with: npm start\n')
   process.exit(ok ? 0 : 1)
 }
@@ -109,11 +121,36 @@ console.log(banner)
 
 const locales = initI18n({ locale: config.locale, logger })
 if (!config.owner.length) {
-  logger.warn(`OWNER is not set! Set OWNER=<number> in .env or owner commands won't work.`)
+  logger.warn('OWNER is not set! Run `npm run setup` or set OWNER=<number> in .env — otherwise owner commands won\'t work.')
+}
+
+// Environment diagnostics with per-OS fix hints
+const ffmpeg = await checkFfmpeg()
+if (!ffmpeg.ffmpeg) {
+  logger.warn('ffmpeg is NOT installed — sticker/video commands will not work. Install it:')
+  logger.warn('  Ubuntu/Debian: sudo apt install ffmpeg | Arch: sudo pacman -S ffmpeg')
+  logger.warn('  macOS: brew install ffmpeg     | Termux: pkg install ffmpeg')
+  logger.warn('  Windows: winget install Gyan.FFmpeg (then restart the terminal)')
+} else if (!ffmpeg.webp) {
+  logger.warn('ffmpeg lacks libwebp — animated stickers may fail. Use your distro\'s full ffmpeg package.')
+} else {
+  logger.info('✅ ffmpeg ready (stickers, media conversions)')
+}
+
+if (await hasYtDlp()) {
+  logger.info('✅ yt-dlp detected — extra YouTube download engine available')
+}
+
+if (config.safeMode) {
+  logger.info('🔒 SAFE_MODE is on — host commands (.exec) are disabled')
 }
 
 const db = new Database(path.join(config.dataDir, 'database.json'))
-await db.load()
+try {
+  await db.load()
+} catch (e) {
+  logger.error(`${e.message} — starting with a fresh database (a .corrupt.* backup was kept)`)
+}
 db.startAutosave(60_000)
 
 const registry = new CommandRegistry(path.resolve('src', 'commands'), { logger, hotReload: config.hotReload })

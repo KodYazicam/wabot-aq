@@ -6,9 +6,12 @@
 import { serialize } from './serialize.js'
 import { printMessage } from '../lib/logger.js'
 import { resolveLocale, t } from '../i18n/index.js'
-import { levenshtein, msToTime } from '../lib/utils.js'
+import { levenshtein, msToTime, redactSecrets } from '../lib/utils.js'
 
 const GROUP_LINK_RE = /chat\.whatsapp\.com\/(invite\/)?[0-9A-Za-z]{15,}/i
+
+const FLOOD_LIMIT = 15 // commands per minute
+const FLOOD_BLOCK_MS = 60_000
 
 const groupCache = new Map() // jid → { data, ts }
 
@@ -19,7 +22,25 @@ const groupCache = new Map() // jid → { data, ts }
 export function attachHandler (deps) {
   const { sock, db, registry, config, logger } = deps
   const cooldowns = new Map() // `${sender}:${command}` → timestamp
+  const floods = new Map() // sender → { times: [], blockedUntil }
   const msgCache = new Map() // chat → recent messages (antidelete)
+
+  /** Flood protection: true = blocked, 'just' = blocked this very call. */
+  function checkFlood (sender) {
+    const now = Date.now()
+    const f = floods.get(sender) || { times: [], blockedUntil: 0 }
+    f.times = f.times.filter(ts => now - ts < 60_000)
+    if (f.blockedUntil > now) return true
+    f.times.push(now)
+    if (f.times.length > FLOOD_LIMIT) {
+      const wasBlocked = f.blockedUntil > now
+      f.blockedUntil = now + FLOOD_BLOCK_MS
+      floods.set(sender, f)
+      return wasBlocked ? true : 'just'
+    }
+    floods.set(sender, f)
+    return false
+  }
 
   const numberJid = (n) => `${n.replace(/[^0-9]/g, '')}@s.whatsapp.net`
 
@@ -205,6 +226,17 @@ export function attachHandler (deps) {
     if (perms.includes('admin') && !isAdmin) return fail('admin')
     if (perms.includes('botAdmin') && !botAdmin) return fail('botAdmin')
 
+    // ---- Flood protection ----
+    if (!isOwner) {
+      const flood = checkFlood(m.sender)
+      if (flood === 'just') {
+        m.reply(t(m.locale, 'handler.flood')).catch(() => {})
+        logger.warn({ from: m.sender }, 'flood protection triggered')
+        return
+      }
+      if (flood) return // silently ignore while blocked
+    }
+
     // ---- Limit ----
     if (def.limit && !isPremium && !isOwner && (user.limit || 0) < 1) {
       m.reply(t(m.locale, 'handler.noLimit', {
@@ -285,7 +317,7 @@ export function attachHandler (deps) {
       await def.run(ctx)
     } catch (e) {
       ok = false
-      const text = String(e?.message || e || 'unknown error').slice(0, 300)
+      const text = redactSecrets(String(e?.message || e || 'unknown error')).slice(0, 300)
       m.reply(t(m.locale, 'general.error', { msg: text })).catch(() => {})
       m.react('❌').catch(() => {})
       logger.error({ err: e }, `command error: ${command}`)

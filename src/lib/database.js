@@ -60,6 +60,8 @@ export class Database {
   async load () {
     try {
       if (fs.existsSync(this.file)) {
+        // boot backup — cheap insurance against corruption
+        try { fs.copyFileSync(this.file, `${this.file}.backup`) } catch { /* ignore */ }
         const raw = JSON.parse(fs.readFileSync(this.file, 'utf8'))
         this.data = {
           users: raw.users || {},
@@ -69,8 +71,20 @@ export class Database {
         }
       }
     } catch (e) {
-      // Back up the broken file and start fresh
+      // Back up the broken file and try the boot backup, else start fresh
       try { fs.copyFileSync(this.file, `${this.file}.corrupt.${Date.now()}`) } catch { /* ignore */ }
+      try {
+        if (fs.existsSync(`${this.file}.backup`)) {
+          const raw = JSON.parse(fs.readFileSync(`${this.file}.backup`, 'utf8'))
+          this.data = {
+            users: raw.users || {},
+            chats: raw.chats || {},
+            settings: raw.settings || {},
+            stats: raw.stats || {}
+          }
+          return this.data
+        }
+      } catch { /* fall through to fresh state */ }
       this.data = { users: {}, chats: {}, settings: {}, stats: {} }
       throw new Error(`database unreadable: ${e.message}`)
     }
