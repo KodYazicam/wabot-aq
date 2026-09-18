@@ -1,0 +1,24 @@
+# Node
+node_modules
+
+# Sessions and data — never share these!
+sessions
+data
+database.json
+*_database.json
+
+# Environment
+.env
+
+# Temporary files
+tmp
+*.log
+
+# Editor / OS
+.*.swp
+.idea
+.vscode
+.DS_Store
+
+# Connection debugging
+waweb

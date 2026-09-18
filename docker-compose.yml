@@ -1,0 +1,11 @@
+services:
+  wabot:
+    build: .
+    container_name: wabot-aq
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./sessions:/app/sessions
+      - ./data:/app/data
+    ports:
+      - "3000:3000"
