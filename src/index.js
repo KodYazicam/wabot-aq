@@ -88,17 +88,21 @@ async function selfTest () {
   await registry.loadAll()
   console.log(`✅ commands (${registry.commands.size} entries loaded)`)
 
-  const { fetchJson } = await import('./lib/utils.js')
-  for (const [name, url] of Object.entries({
-    'Google Translate': 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=hello',
-    'Open-Meteo': 'https://api.open-meteo.com/v1/forecast?latitude=41&longitude=29&current=temperature_2m',
-    Wikipedia: 'https://tr.wikipedia.org/api/rest_v1/page/summary/Ankara'
-  })) {
-    try {
-      await fetchJson(url, {}, 10_000)
-      console.log(`✅ ${name} API reachable`)
-    } catch (e) {
-      console.log(`⚠️ ${name} API unreachable: ${e.message}`)
+  if (args.offline) {
+    console.log('ℹ️ offline mode — skipping external API checks')
+  } else {
+    const { fetchJson } = await import('./lib/utils.js')
+    for (const [name, url] of Object.entries({
+      'Google Translate': 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=hello',
+      'Open-Meteo': 'https://api.open-meteo.com/v1/forecast?latitude=41&longitude=29&current=temperature_2m',
+      Wikipedia: 'https://tr.wikipedia.org/api/rest_v1/page/summary/Ankara'
+    })) {
+      try {
+        await fetchJson(url, {}, 10_000)
+        console.log(`✅ ${name} API reachable`)
+      } catch (e) {
+        console.log(`⚠️ ${name} API unreachable: ${e.message}`)
+      }
     }
   }
 

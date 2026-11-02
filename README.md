@@ -161,7 +161,9 @@ Every option is explained with examples inside [`.env.example`](.env.example) �
 ```bash
 npm start          # normal start
 npm run dev        # auto-restart on code changes (while developing)
+npm test           # offline unit tests: database, i18n, utils/SSRF, math — no WhatsApp or network
 npm run selftest   # health check: ffmpeg, i18n, commands, external APIs — no WhatsApp needed
+npm run selftest:offline  # same checks without external API calls (used by CI)
 npm run docs       # regenerate docs/COMMANDS.md after adding commands
 node src/index.js --big-qr     # larger QR code for small terminals
 node src/index.js --session work  # run a second bot under a different session name

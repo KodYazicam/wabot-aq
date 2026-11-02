@@ -2,13 +2,22 @@ name: CI
 
 on:
   push:
-    branches: [master, main]
+    branches: [main, master]
   pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
+      fail-fast: false
       matrix:
         node-version: [20, 22]
     steps:
@@ -21,8 +30,10 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - run: npm ci
       - name: Syntax check
-        run: for f in $(find src -name "*.js"); do node --check "$f"; done
-      - name: Self test
-        run: node src/index.js --selftest
-        env:
-          CI: true
+        run: |
+          find src scripts -type f \( -name "*.js" -o -name "*.mjs" \) -print0 \
+            | xargs -0 -n1 node --check
+      - name: Unit tests (offline)
+        run: npm test
+      - name: Self-test (offline)
+        run: npm run selftest:offline

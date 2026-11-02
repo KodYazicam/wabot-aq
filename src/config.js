@@ -21,7 +21,8 @@ const { values: argv } = parseArgs({
     'big-qr': { type: 'boolean' },
     debug: { type: 'boolean' },
     trace: { type: 'boolean' },
-    selftest: { type: 'boolean' }
+    selftest: { type: 'boolean' },
+    offline: { type: 'boolean' }
   },
   allowPositionals: true,
   strict: false
