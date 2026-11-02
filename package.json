@@ -34,7 +34,7 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@distube/ytdl-core": "^4.16.12",
+    "@distube/ytdl-core": "^5.2.0",
     "baileys": "^7.0.0-rc14",
     "dotenv": "^16.4.5",
     "node-webpmux": "^3.2.1",
