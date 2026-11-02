@@ -10,8 +10,10 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
+    "test": "node --test",
     "setup": "node scripts/setup.mjs",
     "selftest": "node src/index.js --selftest",
+    "selftest:offline": "node src/index.js --selftest --offline",
     "docs": "node scripts/generate-docs.mjs"
   },
   "keywords": [
@@ -22,13 +24,13 @@
     "sticker",
     "multi-device"
   ],
-  "homepage": "https://github.com/Nurutomo/wabot-aq",
+  "homepage": "https://github.com/KodYazicam/wabot-aq#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nurutomo/wabot-aq.git"
+    "url": "git+https://github.com/KodYazicam/wabot-aq.git"
   },
   "bugs": {
-    "url": "https://github.com/Nurutomo/wabot-aq/issues"
+    "url": "https://github.com/KodYazicam/wabot-aq/issues"
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
