@@ -56,11 +56,12 @@ jobs:
         run: |
           docker run --rm wabot-aq:ci sh -c '
             set -eu
-            test ! -e /app/.env
-            test ! -e /app/sessions
-            test ! -e /app/data
-            test ! -e /app/tests
-            test ! -e /app/.git
-            test ! -e /app/node_modules/decoy.txt
+            for path in .env tests .git node_modules/decoy.txt sessions/creds.json data/database.json; do
+              if [ -e "/app/$path" ]; then
+                echo "unexpected file in image: $path"
+                exit 1
+              fi
+            done
             test -d /app/node_modules
+            echo "image contents ok: no decoy secrets or host files"
           '
