@@ -126,6 +126,8 @@ docker compose logs -f      # follow the log to see the QR code
 ```
 
 The first login must use the web panel: set `WEB_SERVER=true` in `.env`, restart, then open `http://YOUR-SERVER-IP:3000` and scan the QR from your browser. Your session and data survive restarts (they're in Docker volumes). To stop: `docker compose down`.
+
+The build context excludes `.env`, `sessions/`, and `data/`; the container gets secrets from the environment file and state from mounted volumes, so neither is baked into an image layer.
 </details>
 
 <details>

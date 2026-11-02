@@ -1,0 +1,21 @@
+# Secrets and runtime state — mounted at runtime, never baked into an image layer
+.env
+.env.*
+!.env.example
+sessions
+data
+tmp
+logs
+
+# Dependencies are installed inside the image from package-lock.json
+node_modules
+
+# Repository metadata and development-only files
+.git
+.git*
+.github
+tests
+docs
+*.log
+*.swp
+.DS_Store
