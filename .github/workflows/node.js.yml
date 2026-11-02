@@ -37,3 +37,31 @@ jobs:
         run: npm test
       - name: Self-test (offline)
         run: npm run selftest:offline
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create decoy secrets and state
+        run: |
+          printf 'SECRET=must-not-be-in-image\n' > .env
+          mkdir -p sessions data node_modules
+          printf 'session-secret\n' > sessions/creds.json
+          printf 'database-secret\n' > data/database.json
+          printf 'host-dependency\n' > node_modules/decoy.txt
+      - name: Build image
+        run: docker build -t wabot-aq:ci .
+      - name: Verify image excludes secrets and runtime state
+        run: |
+          docker run --rm wabot-aq:ci sh -c '
+            set -eu
+            for path in .env tests .git node_modules/decoy.txt sessions/creds.json data/database.json; do
+              if [ -e "/app/$path" ]; then
+                echo "unexpected file in image: $path"
+                exit 1
+              fi
+            done
+            test -d /app/node_modules
+            echo "image contents ok: no decoy secrets or host files"
+          '
