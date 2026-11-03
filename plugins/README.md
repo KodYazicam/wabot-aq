@@ -34,9 +34,43 @@ export const commands = [
 - Both `src/commands/` and `plugins/` are watched when hot reload is enabled.
 - Plugins are **trusted local code**, exactly like the built-in commands. There
   is no sandbox. Only install plugins you understand.
-- The built-in `plugins.hello` translation is available to the example. There is
-  no per-plugin locale loader yet; plugin authors can use plain text, an
-  existing locale key, or add a key to the core locale files.
+- The built-in `plugins.hello` translation is available to the example.
+  Plugins can also ship their own translations (see below).
+
+## Plugin translations
+
+A plugin can keep its strings next to its code instead of editing the core
+locale files:
+
+```text
+plugins/
+  hello.js
+  locales/
+    hello/
+      en.json
+      tr.json
+```
+
+```json
+{
+  "greeting": "Hello {name}!",
+  "usage": "Usage: {prefix}hello"
+}
+```
+
+Keys are exposed as `plugin.<directory>.<key>`, so the command uses:
+
+```js
+await ctx.reply(ctx.t('plugin.hello.greeting', { name: ctx.pushName || 'friend' }))
+```
+
+Only the six core locale codes (`en`, `tr`, `es`, `id`, `de`, `fr`) are merged.
+A missing language falls back through the normal chain to English. Files for
+unknown locale codes are skipped with a warning, and the directory name is
+used as the namespace.
+
+Plugin locale JSON is read once at startup; restart the bot after editing it.
+Plugin `.js` files still hot-reload normally.
 
 ## Docker
 
