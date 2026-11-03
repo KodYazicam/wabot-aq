@@ -1,36 +1,52 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
-
+about: Report a reproducible problem with the bot
+title: "[bug] "
+labels: ["bug"]
+assignees: ""
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## What happened?
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+<!-- A clear description of the bug. -->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Steps to reproduce
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+1.
+2.
+3.
 
-**Desktop (please complete the following information):**
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## Expected behaviour
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Version [e.g. 22]
+<!-- What should have happened instead? -->
 
-**Additional context**
-Add any other context about the problem here.
+## Environment
+
+- Deployment: <!-- local / Docker / Termux / VPS / other -->
+- OS:
+- Node.js version (`node -v`):
+- ffmpeg (`ffmpeg -version | head -1`):
+- Install type / commit:
+- Locale (`LANGUAGE`):
+- Command and prefix used:
+
+## Logs
+
+<!--
+Paste the relevant log lines. Remove phone numbers, JIDs, API keys, session keys,
+QR/pairing codes, and .env values before submitting.
+-->
+
+```text
+
+```
+
+## Additional context
+
+<!-- Screenshots, related issues, or anything else that helps. -->
+
+## Pre-submit checklist
+
+- [ ] I searched existing issues and did not find a duplicate
+- [ ] I can reproduce this on the latest `main`
+- [ ] I removed all secrets and personal data from logs

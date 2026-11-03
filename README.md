@@ -32,9 +32,10 @@
 11. [Writing your own command (step by step)](#writing-your-own-command-step-by-step)
 12. [How it works (architecture)](#how-it-works-architecture)
 13. [Security](#security)
-14. [FAQ & troubleshooting](#faq--troubleshooting)
-15. [Updating](#updating)
-16. [Credits & license](#credits--license)
+14. [Contributing](#contributing)
+15. [FAQ & troubleshooting](#faq--troubleshooting)
+16. [Updating](#updating)
+17. [Credits & license](#credits--license)
 
 ---
 
@@ -305,6 +306,18 @@ A full annotated template is in [`src/commands/_example.js`](src/commands/_examp
 - **Permission levels** — destructive commands are owner-only; `.exec` can be fully disabled with `SAFE_MODE=true`.
 - **Anti-abuse** — per-command cooldowns, flood protection (15 commands/min), 3-strike warning system, user and chat bans.
 - **Good citizenship** — broadcasts are rate-limited (0.8s between messages) to avoid triggering WhatsApp spam detection.
+
+If you find a vulnerability, please report it privately using [SECURITY.md](SECURITY.md) instead of opening a public issue.
+
+## Contributing
+
+Contributions are welcome — bug reports, translations, commands, and documentation all help.
+
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) for local setup, tests, command authoring, and the PR checklist.
+- Follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+- Report security problems privately through [SECURITY.md](SECURITY.md).
+
+For small fixes, a focused pull request is enough. For larger changes, open an issue first so the approach can be discussed.
 
 ## FAQ & troubleshooting
 

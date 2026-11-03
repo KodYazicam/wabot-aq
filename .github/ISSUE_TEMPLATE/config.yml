@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/KodYazicam/wabot-aq/security/advisories/new
+    about: Report security issues privately. Never post session or .env data.
+  - name: Setup and troubleshooting
+    url: https://github.com/KodYazicam/wabot-aq#faq--troubleshooting
+    about: Check the README FAQ before opening a support issue.
