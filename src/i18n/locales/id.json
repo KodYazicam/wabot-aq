@@ -128,7 +128,9 @@
     "wmUsage": "⌨️ Cara pakai: balas media dengan *{prefix}stickerwm <paket|pembuat>*",
     "replySticker": "📎 Balas pesan stiker dulu.",
     "exifUsage": "⌨️ Cara pakai: *{prefix}setexif <paket|pembuat>*",
-    "exifSet": "✅ Watermark stiker diatur:\n📦 Paket: *{packname}*\n✍️ Pembuat: *{author}*"
+    "exifSet": "✅ Watermark stiker diatur:\n📦 Paket: *{packname}*\n✍️ Pembuat: *{author}*",
+    "textUsage": "⌨️ Penggunaan: *{prefix}{cmd} <teks>* — atau balas pesan teks.",
+    "textTooLong": "✂️ Teks terlalu panjang — maksimal {max} karakter."
   },
   "media": {
     "done": "✅ Selesai!",

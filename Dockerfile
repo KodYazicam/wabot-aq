@@ -1,7 +1,7 @@
 FROM node:24-alpine
 
-# ffmpeg for sticker/video conversions
-RUN apk add --no-cache ffmpeg tzdata
+# ffmpeg for sticker/video conversions; fonts for text stickers
+RUN apk add --no-cache ffmpeg tzdata fontconfig ttf-dejavu
 
 WORKDIR /app
 

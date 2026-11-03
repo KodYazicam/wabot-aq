@@ -128,7 +128,9 @@
     "wmUsage": "⌨️ Uso: responde a un archivo con *{prefix}stickerwm <paquete|autor>*",
     "replySticker": "📎 Primero responde a un sticker.",
     "exifUsage": "⌨️ Uso: *{prefix}setexif <paquete|autor>*",
-    "exifSet": "✅ Marca de agua del sticker:\n📦 Paquete: *{packname}*\n✍️ Autor: *{author}*"
+    "exifSet": "✅ Marca de agua del sticker:\n📦 Paquete: *{packname}*\n✍️ Autor: *{author}*",
+    "textUsage": "⌨️ Uso: *{prefix}{cmd} <texto>* — o responde a un mensaje de texto.",
+    "textTooLong": "✂️ El texto es demasiado largo — manténlo por debajo de {max} caracteres."
   },
   "media": {
     "done": "✅ ¡Listo!",
