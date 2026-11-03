@@ -1,6 +1,6 @@
 # Command reference
 
-> Auto-generated from the command registry (`npm run docs`) — 91 commands, generated locale: `en` (de, en, es, fr, id, tr).
+> Auto-generated from the command registry (`npm run docs`) — 94 commands, generated locale: `en` (de, en, es, fr, id, tr).
 
 The prefix is configurable (`PREFIX` in .env, default `.`).
 
@@ -126,19 +126,13 @@ The prefix is configurable (`PREFIX` in .env, default `.`).
 | `.warn` | — | — | Warn a user (3 warnings → ban) | moderator | 3s |
 | `.dbstats` | `.dbinfo` | — | Show database size and save metrics | owner | 3s |
 
-## Stickers (`sticker`)
-
-| Command | Aliases | Usage | Description | Access | Cooldown |
-|---|---|---|---|---|---|
-| `.setexif` | — | `<packname|author>` | Set default sticker watermark (pack|author) | owner | 3s |
-| `.sticker` | `.s`, `.st`, `.stiker`, `.stickergif` | `[url] [packname|author]` | Create a sticker from image/video (reply, media or URL) | everyone | 5s |
-| `.stickerwm` | `.swm`, `.wm` | `<packname|author>` | Create a sticker with custom watermark | everyone | 5s |
-| `.take` | — | `[packname|author]` | Restamp a sticker with your watermark (reply to sticker) | everyone | 5s |
-
 ## Tools (`tools`)
 
 | Command | Aliases | Usage | Description | Access | Cooldown |
 |---|---|---|---|---|---|
+| `.remind` | `.reminder`, `.hatirlat` | `<10m|2h|1d> <text>` | Set a reminder for this chat | everyone | 3s |
+| `.reminders` | `.remindlist` | — | List your active reminders in this chat | everyone | 3s |
+| `.delremind` | `.delreminder`, `.reminddel` | `<id>` | Cancel one of your reminders | everyone | 3s |
 | `.tts` | `.say` | `[lang] <text>` | Convert text to a voice note | everyone | 5s |
 | `.translate` | `.tr`, `.cevir` | `<lang> <text>` | Translate text (auto-detect source language) | everyone | 3s |
 | `.weather` | `.hava` | `<city>` | Current weather for a city | everyone | 5s |
@@ -149,6 +143,15 @@ The prefix is configurable (`PREFIX` in .env, default `.`).
 | `.shorturl` | `.shorten` | `<url>` | Shorten a URL (is.gd) | everyone | 3s |
 | `.pass` | `.password` | `[length]` | Generate a secure random password | everyone | 3s |
 | `.readmore` | `.spoiler` | `<visible>|<hidden>` | Hide text behind a "read more" collapse | everyone | 3s |
+
+## Stickers (`sticker`)
+
+| Command | Aliases | Usage | Description | Access | Cooldown |
+|---|---|---|---|---|---|
+| `.setexif` | — | `<packname|author>` | Set default sticker watermark (pack|author) | owner | 3s |
+| `.sticker` | `.s`, `.st`, `.stiker`, `.stickergif` | `[url] [packname|author]` | Create a sticker from image/video (reply, media or URL) | everyone | 5s |
+| `.stickerwm` | `.swm`, `.wm` | `<packname|author>` | Create a sticker with custom watermark | everyone | 5s |
+| `.take` | — | `[packname|author]` | Restamp a sticker with your watermark (reply to sticker) | everyone | 5s |
 
 ---
 

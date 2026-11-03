@@ -12,6 +12,7 @@ import { CommandRegistry } from './core/commands.js'
 import { startConnection } from './core/connection.js'
 import { attachHandler } from './core/handler.js'
 import { attachEvents } from './core/events.js'
+import { startReminderScheduler } from './core/scheduler.js'
 import { checkFfmpeg } from './lib/media.js'
 import { hasYtDlp } from './lib/youtube.js'
 
@@ -169,6 +170,12 @@ const registry = new CommandRegistry(path.resolve('src', 'commands'), {
 await registry.loadAll()
 
 let lastSock = null
+const stopReminderScheduler = startReminderScheduler({
+  db,
+  config,
+  logger,
+  getSock: () => lastSock
+})
 
 startConnection({
   config,
@@ -197,6 +204,7 @@ startConnection({
 for (const signal of ['SIGINT', 'SIGTERM']) {
   process.on(signal, async () => {
     logger.info(`${signal} received — saving data and exiting`)
+    stopReminderScheduler()
     await db.stop().catch(() => {})
     process.exit(0)
   })

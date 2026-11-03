@@ -359,5 +359,17 @@
   },
   "plugins": {
     "hello": "👋 Halo {name}! Perintah ini berasal dari plugin eksternal."
+  },
+  "remind": {
+    "usage": "⌨️ Penggunaan: *{prefix}remind <10m|2h|1d> <teks>*\nContoh: *{prefix}remind 10m Minum air*",
+    "tooLong": "⌛ Pengingat paling lama 365 hari ke depan.",
+    "created": "⏰ Pengingat dibuat!\n\n🆔 `{id}`\n⏱️ Dalam {when} ({at})\n📝 {text}\n\nBatal: *{prefix}delremind {id}*",
+    "empty": "⏰ Kamu tidak punya pengingat aktif di chat ini.",
+    "header": "⏰ *Pengingatmu*",
+    "line": "• `{id}` — dalam {when} · {text}",
+    "notFound": "❓ Pengingat `{id}` tidak ditemukan di chat ini.",
+    "deleted": "✅ Pengingat `{id}` dihapus.",
+    "delUsage": "⌨️ Penggunaan: *{prefix}delremind <id>*",
+    "fired": "⏰ Pengingat {user}: {text}"
   }
 }

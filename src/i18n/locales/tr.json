@@ -359,5 +359,17 @@
   },
   "plugins": {
     "hello": "👋 Merhaba {name}! Bu komut harici bir eklentiden geliyor."
+  },
+  "remind": {
+    "usage": "⌨️ Kullanım: *{prefix}remind <10m|2h|1d> <metin>*\nÖrnek: *{prefix}remind 10m Su iç*",
+    "tooLong": "⌛ Hatırlatıcı en fazla 365 gün sonrası için ayarlanabilir.",
+    "created": "⏰ Hatırlatıcı kuruldu!\n\n🆔 `{id}`\n⏱️ {when} sonra ({at})\n📝 {text}\n\nİptal: *{prefix}delremind {id}*",
+    "empty": "⏰ Bu sohbette aktif hatırlatıcın yok.",
+    "header": "⏰ *Hatırlatıcıların*",
+    "line": "• `{id}` — {when} sonra · {text}",
+    "notFound": "❓ Bu sohbette `{id}` hatırlatıcısı bulunamadı.",
+    "deleted": "✅ `{id}` hatırlatıcısı silindi.",
+    "delUsage": "⌨️ Kullanım: *{prefix}delremind <id>*",
+    "fired": "⏰ {user} hatırlatıcısı: {text}"
   }
 }

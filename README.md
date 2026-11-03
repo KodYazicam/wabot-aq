@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/KodYazicam/wabot-aq.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-green.svg)](package.json)
 
-🌍 en · tr · id · es · de · fr &nbsp;|&nbsp; ⚡ 91 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
+🌍 en · tr · id · es · de · fr &nbsp;|&nbsp; ⚡ 94 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
 
 </div>
 
@@ -52,7 +52,7 @@ This is a ground-up rewrite of the classic [Nurutomo/wabot-aq](https://github.co
 | 🗨️ **Chat & AI** | talk to any OpenAI-compatible AI (OpenAI, Groq, OpenRouter, local Ollama) with per-chat memory |
 | 🎨 **Stickers** | turn images, videos, GIFs or URLs into stickers — animated too, with your own watermark |
 | 🎬 **Downloads** | YouTube audio/video (3 fallback engines so it keeps working), TikTok without watermark |
-| 🔧 **Tools** | text-to-speech, translation, weather, Wikipedia, QR codes, calculator, password generator, URL shortener |
+| 🔧 **Tools** | text-to-speech, translation, weather, Wikipedia, QR codes, calculator, password generator, URL shortener, persistent reminders |
 | 👥 **Groups** | welcome messages, anti-link, anti-delete, tag-everyone, polls, kick/promote/demote, open/close |
 | 🕹 **Fun & RPG** | 8-ball, jokes, quotes, match-making, levels & XP, daily rewards, leaderboards, AFK |
 | 🛡 **Safety** | owner/moderator/premium permission levels, cooldowns, flood protection, warnings, bans |
@@ -211,7 +211,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 
 ## All commands
 
-91 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
+94 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
 
 | Category | Commands |
 |---|---|
@@ -221,7 +221,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 | Media | `toimg` `tomp4` `tomp3` `tovn` `fixvideo` |
 | Downloads | `yts` `play` `yta` `ytv` `tiktok` |
 | AI | `ai` `resetai` |
-| Tools | `tts` `translate` `weather` `wiki` `qr` `calc` `base64` `shorturl` `pass` `readmore` `dice` `flip` |
+| Tools | `tts` `translate` `weather` `wiki` `qr` `calc` `base64` `shorturl` `pass` `readmore` `dice` `flip` `remind` `reminders` `delremind` |
 | Groups | `tagall` `hidetag` `kick` `add` `promote` `demote` `grouplink` `revoke` `groupinfo` `poll` `welcome` `setwelcome` `setbye` `bye` `gwarn` `warnings` `resetwarn` `antilink` `antidelete` `detect` `opengroup` `closegroup` `setsubject` `setdesc` `del` |
 | Fun | `8ball` `pick` `rate` `match` `joke` `quote` `russianroulette` |
 | Profile & RPG | `profile` `level` `daily` `leaderboard` `afk` |
@@ -288,7 +288,7 @@ Plugins are trusted local code — there is no sandbox. In Docker, `docker-compo
 
 ```
 ┌────────────┐   messages    ┌─────────────┐   commands    ┌──────────────┐
-│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  91 commands │
+│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  94 commands │
 │ (multi-dev)│    QR pair    │  (socket)   │  hot-reload   │  src/commands│
 └────────────┘               └─────────────┘               └──────────────┘
                                   │                              │
