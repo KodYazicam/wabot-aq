@@ -47,6 +47,7 @@
   "menu": {
     "header": "🤖 *{bot}* — Menú de comandos\n📋 {count} comandos · prefijo: {prefix}",
     "uptime": "⏱️ Activo: {uptime}",
+    "locale": "🌍 Idioma: {locale}",
     "tip": "💡 Detalles de un comando: {prefix}{cmd} <comando>",
     "footer": "🔗 {bot} · impulsado por wabot-aq",
     "cat": {

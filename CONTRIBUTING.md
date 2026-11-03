@@ -42,7 +42,7 @@ npm start
 | `src/core/commands.js` | Command loader, registry, hot reload |
 | `src/commands/*.js` | Bot features; one file can export several commands |
 | `plugins/*.js` | Optional local commands loaded after the built-ins |
-| `src/i18n/locales/*.json` | User-facing text for en/es/id/tr |
+| `src/i18n/locales/*.json` | User-facing text for en/es/id/tr/de/fr |
 | `src/lib/` | Database, media, YouTube, logging, and utility helpers |
 | `tests/` | Node test-runner suites (no WhatsApp or network required) |
 | `scripts/` | Setup wizard and command-doc generator |
@@ -51,11 +51,19 @@ npm start
 
 1. Copy `src/commands/_example.js` or add to the most relevant existing file.
 2. Export a `commands` array. Each definition needs a `name` and `run(ctx)`; supported fields are documented at the top of `_example.js`.
-3. Add every user-facing string to **all four** locale files. The locale-parity test fails if `en`, `es`, `id`, and `tr` drift apart.
+3. Add every user-facing string to **all six** locale files. The locale-parity test fails if `en`, `es`, `id`, `tr`, `de`, or `fr` drift apart.
 4. Run `npm run docs` to regenerate `docs/COMMANDS.md`.
 5. Run `npm test`. The command-registry test loads every bundled command and rejects duplicate names or aliases.
 
 Useful `ctx` fields include `m`, `sock`, `db`, `config`, `args`, `text`, `t()`, `reply()`, `user`, `chat`, `locale`, `isOwner`, and `getGroupMetadata()`.
+
+## Adding a locale
+
+1. Copy `src/i18n/locales/en.json` to a new ISO code file, e.g. `it.json`.
+2. Translate every value. Keep `{placeholders}` unchanged and keep array lengths identical — `jokes`, `quotes`, `ballAnswers`, and `roles` are all checked.
+3. Add the flag to the map in `src/commands/lang.js` if it is missing.
+4. Run `npm test`; the locale-parity test compares every key and array length against English.
+5. Update the language list and string count in the README.
 
 ### Local plugins
 

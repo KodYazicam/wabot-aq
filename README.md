@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/KodYazicam/wabot-aq.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-green.svg)](package.json)
 
-🌍 en · tr · id · es &nbsp;|&nbsp; ⚡ 87 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
+🌍 en · tr · id · es · de · fr &nbsp;|&nbsp; ⚡ 87 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
 
 </div>
 
@@ -43,7 +43,7 @@
 
 A WhatsApp bot you host yourself. You pair it once by scanning a QR code (like WhatsApp Web), and from then on it answers commands in your chats: makes stickers, downloads YouTube/TikTok, chats with an AI, manages groups, plays games, and much more.
 
-This is a ground-up rewrite of the classic [Nurutomo/wabot-aq](https://github.com/Nurutomo/wabot-aq) — the original stopped working when WhatsApp shut down the old login method. Version 3.0 uses the modern **multi-device** protocol, speaks **four languages**, and is built to be easy to install and hard to break.
+This is a ground-up rewrite of the classic [Nurutomo/wabot-aq](https://github.com/Nurutomo/wabot-aq) — the original stopped working when WhatsApp shut down the old login method. Version 3.0 uses the modern **multi-device** protocol, speaks **six languages**, and is built to be easy to install and hard to break.
 
 ## What can it do?
 
@@ -56,7 +56,7 @@ This is a ground-up rewrite of the classic [Nurutomo/wabot-aq](https://github.co
 | 👥 **Groups** | welcome messages, anti-link, anti-delete, tag-everyone, polls, kick/promote/demote, open/close |
 | 🕹 **Fun & RPG** | 8-ball, jokes, quotes, match-making, levels & XP, daily rewards, leaderboards, AFK |
 | 🛡 **Safety** | owner/moderator/premium permission levels, cooldowns, flood protection, warnings, bans |
-| 🌍 **Languages** | English, Türkçe, Bahasa Indonesia, Español — per user, per group, or global |
+| 🌍 **Languages** | English, Türkçe, Bahasa Indonesia, Español, Deutsch, Français — per user, per group, or global |
 
 ## Requirements
 
@@ -149,7 +149,7 @@ All settings live in one file: **`.env`** (created by `npm run setup`, template 
 | Setting | What it does | Example |
 |---|---|---|
 | `OWNER` | **Your WhatsApp number** (country code, digits only). You get owner powers: settings, broadcasts, bans | `905321234567` |
-| `LOCALE` | Default bot language | `tr` |
+| `LOCALE` | Default bot language | `en` |
 | `PREFIX` | Character before commands | `.` (→ `.menu`) |
 | `MODE` | `public` = everyone can use it · `self` = only you | `public` |
 | `AI_API_KEY` + `AI_BASE_URL` + `AI_MODEL` | Enable the `.ai` command with any OpenAI-compatible API (leave empty to disable) | see `.env.example` |
@@ -201,13 +201,13 @@ Full reference with aliases, permissions and cooldowns: **[docs/COMMANDS.md](doc
 
 ## Languages
 
-English, Türkçe, Bahasa Indonesia, Español — all complete (140+ strings each: menus, errors, games, jokes, quotes…).
+English, Türkçe, Bahasa Indonesia, Español, Deutsch, Français — all complete (290+ strings each: menus, errors, games, jokes, quotes…).
 
 - **You**: `.lang tr` — your private chats with the bot
 - **Group admins**: `.lang tr` — the group's language (members can still pick their own)
 - **Owner**: `.lang tr global` — the default for everyone
 
-Missing keys fall back automatically: *user → group → global → English*. **Adding a language is just one file**: copy `src/i18n/locales/en.json`, translate the values, save it as e.g. `de.json` — done. (Array values hold jokes, quotes and 8-ball answers — translate those too.)
+Missing keys fall back automatically: *user → group → global → English*. **Adding a language is just one file**: copy `src/i18n/locales/en.json`, translate the values, save it as e.g. `it.json` — done. (Array values hold jokes, quotes and 8-ball answers — translate those too.)
 
 ## All commands
 
@@ -261,7 +261,7 @@ export const commands = [
 - `ctx.sock` — the WhatsApp connection for sending media, group actions, …
 - `ctx.isOwner`, `ctx.isGroup`, `ctx.getGroupMetadata()`, `ctx.user`/`ctx.chat` (database records)
 
-**Step 3 (optional).** Add your own reply text to all four locale files so it's translatable:
+**Step 3 (optional).** Add your own reply text to all six locale files (`en`, `es`, `id`, `tr`, `de`, `fr`) so it's translatable:
 
 ```json
 "fun": { "shoutResult": "{text}!!!" }
@@ -295,7 +295,7 @@ Plugins are trusted local code — there is no sandbox. In Docker, `docker-compo
                     ┌─────────────┼──────────────┐               │
               ┌─────▼─────┐ ┌────▼─────┐ ┌──────▼──────┐ ┌──────▼──────┐
               │  handler  │ │  events  │ │     i18n    │ │ media/tools │
-              │ middleware│ │ welcome/ │ │ en tr id es │ │ ffmpeg/sharp│
+              │ middleware│ │ welcome/ │ │ en…fr (6)   │ │ ffmpeg/sharp│
               │ perms/AFK │ │ antilink │ │  fallbacks  │ │  youtube    │
               └─────┬─────┘ └──────────┘ └─────────────┘ └─────────────┘
                     │

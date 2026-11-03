@@ -47,6 +47,7 @@
   "menu": {
     "header": "🤖 *{bot}* — Komut Menüsü\n📋 {count} komut · önek: {prefix}",
     "uptime": "⏱️ Çalışma süresi: {uptime}",
+    "locale": "🌍 Dil: {locale}",
     "tip": "💡 Bir komutun ayrıntıları için: {prefix}{cmd} <komut>",
     "footer": "🔗 {bot} · wabot-aq ile güçlendirildi",
     "cat": {

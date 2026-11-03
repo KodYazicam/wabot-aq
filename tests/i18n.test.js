@@ -40,6 +40,9 @@ test('every locale has the same keys and role tiers', () => {
         Array.isArray(en[key]),
         `${code}:${key} has a different value type`
       )
+      if (Array.isArray(en[key])) {
+        assert.equal(locale[key].length, en[key].length, `${code}:${key} has a different array length`)
+      }
     }
     assert.equal(tArray(code, 'rpg.roles').length, ROLE_THRESHOLDS.length, `${code} role count`)
   }
@@ -47,7 +50,7 @@ test('every locale has the same keys and role tiers', () => {
 
 test('loads every bundled locale', () => {
   const locales = availableLocales()
-  for (const code of ['en', 'tr', 'es', 'id']) {
+  for (const code of ['en', 'tr', 'es', 'id', 'de', 'fr']) {
     assert.ok(locales.includes(code), `missing locale ${code}`)
   }
   assert.deepEqual(locales, [...locales].sort())

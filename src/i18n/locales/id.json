@@ -47,6 +47,7 @@
   "menu": {
     "header": "🤖 *{bot}* — Daftar Perintah\n📋 {count} perintah · prefiks: {prefix}",
     "uptime": "⏱️ Aktif: {uptime}",
+    "locale": "🌍 Bahasa: {locale}",
     "tip": "💡 Detail perintah: {prefix}{cmd} <perintah>",
     "footer": "🔗 {bot} · didukung wabot-aq",
     "cat": {
