@@ -9,7 +9,7 @@ export const ROOT_DIR = path.resolve(__dirname, '..')
 // Load .env if present
 if (fs.existsSync(path.join(ROOT_DIR, '.env'))) {
   const { config: loadEnv } = await import('dotenv')
-  loadEnv()
+  loadEnv({ quiet: true })
 }
 
 // CLI flags (legacy flags from the original bot are preserved)
