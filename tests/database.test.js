@@ -68,6 +68,37 @@ test('save and load round-trip the JSON store', async () => {
   assert.equal(reloaded.data.stats.ping.last, 123)
 })
 
+test('save skips unchanged data, force writes, and reports metrics', async () => {
+  const file = tmpFile()
+  const db = new Database(file)
+  db.ensureUser('a@s.whatsapp.net', 'A')
+
+  assert.equal(await db.save(), true)
+  const first = db.info()
+  assert.equal(first.users, 1)
+  assert.ok(first.size > 0)
+  assert.equal(first.saves, 1)
+  assert.equal(first.skips, 0)
+  assert.ok(first.lastSavedAt > 0)
+  assert.ok(first.lastCheckedAt > 0)
+
+  assert.equal(await db.save(), false)
+  assert.equal(db.info().saves, 1)
+  assert.equal(db.info().skips, 1)
+
+  assert.equal(await db.save({ force: true }), true)
+  assert.equal(db.info().saves, 2)
+
+  db.data.users['a@s.whatsapp.net'].name = 'B'
+  assert.equal(await db.save(), true)
+  assert.equal(db.info().saves, 3)
+
+  const reloaded = new Database(file)
+  await reloaded.load()
+  assert.equal(await reloaded.save(), false)
+  assert.equal(reloaded.info().skips, 1)
+})
+
 test('corrupt data is backed up and reported', async () => {
   const file = tmpFile()
   fs.mkdirSync(path.dirname(file), { recursive: true })
