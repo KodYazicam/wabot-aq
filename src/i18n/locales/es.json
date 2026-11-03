@@ -89,7 +89,10 @@
     "botinfo": "🤖 *{bot}* v{version}\n\n🖥️ Plataforma: {platform}\n🟢 Node: {node}\n⚡ Prefijo: {prefix}\n🌍 Idioma: {locale} (disponibles: {locales})\n\n👥 Usuarios: {users}\n💬 Chats: {chats}\n👥 Grupos: {groups}\n⚡ Comandos: {commands}\n📊 Comandos usados: {used}",
     "statsEmpty": "📊 Aún no hay estadísticas de comandos.",
     "statsHeader": "📊 *Comandos más usados*",
-    "statsLine": "{rank}. *{cmd}* — {total}× ({success} ✓)"
+    "statsLine": "{rank}. *{cmd}* — {total}× ({success} ✓)",
+    "pluginsEmpty": "🔌 No se encontraron plugins externos.\n\nCrea `plugins/my-plugin.js` o copia `plugins/_example.js` para empezar.",
+    "pluginsHeader": "🔌 *Plugins externos* ({count} archivo(s))",
+    "pluginsLine": "• *{file}* — {commands}"
   },
   "lang": {
     "show": "🌍 Idioma actual: *{current}*\n\nDisponibles: {list}\n\n💡 Cámbialo con: {examples}\n(en grupos los admins fijan el idioma del grupo; en privado fijas el tuyo)",
@@ -327,5 +330,8 @@
   },
   "example": {
     "echo": "Dijiste: *{text}*"
+  },
+  "plugins": {
+    "hello": "👋 ¡Hola {name}! Este comando viene de un plugin externo."
   }
 }

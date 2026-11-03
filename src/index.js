@@ -84,7 +84,11 @@ async function selfTest () {
     ok = false
   }
 
-  const registry = new CommandRegistry(path.resolve('src', 'commands'), { logger: console, hotReload: false })
+  const registry = new CommandRegistry(path.resolve('src', 'commands'), {
+    logger: console,
+    hotReload: false,
+    extraDirs: [path.resolve('plugins')]
+  })
   await registry.loadAll()
   console.log(`✅ commands (${registry.commands.size} entries loaded)`)
 
@@ -157,7 +161,11 @@ try {
 }
 db.startAutosave(60_000)
 
-const registry = new CommandRegistry(path.resolve('src', 'commands'), { logger, hotReload: config.hotReload })
+const registry = new CommandRegistry(path.resolve('src', 'commands'), {
+  logger,
+  hotReload: config.hotReload,
+  extraDirs: [path.resolve('plugins')]
+})
 await registry.loadAll()
 
 let lastSock = null

@@ -89,7 +89,10 @@
     "botinfo": "🤖 *{bot}* v{version}\n\n🖥️ Platform: {platform}\n🟢 Node: {node}\n⚡ Prefiks: {prefix}\n🌍 Bahasa: {locale} (tersedia: {locales})\n\n👥 Pengguna: {users}\n💬 Chat: {chats}\n👥 Grup: {groups}\n⚡ Perintah: {commands}\n📊 Perintah dipakai: {used}",
     "statsEmpty": "📊 Belum ada statistik perintah.",
     "statsHeader": "📊 *Perintah terpopuler*",
-    "statsLine": "{rank}. *{cmd}* — {total}× ({success} ✓)"
+    "statsLine": "{rank}. *{cmd}* — {total}× ({success} ✓)",
+    "pluginsEmpty": "🔌 Tidak ada plugin eksternal.\n\nBuat `plugins/my-plugin.js` atau salin `plugins/_example.js` untuk memulai.",
+    "pluginsHeader": "🔌 *Plugin eksternal* ({count} file)",
+    "pluginsLine": "• *{file}* — {commands}"
   },
   "lang": {
     "show": "🌍 Bahasa saat ini: *{current}*\n\nTersedia: {list}\n\n💡 Ganti dengan: {examples}\n(di grup admin mengatur bahasa grup; di chat pribadi kamu mengatur bahasamu sendiri)",
@@ -327,5 +330,8 @@
   },
   "example": {
     "echo": "Kamu bilang: *{text}*"
+  },
+  "plugins": {
+    "hello": "👋 Halo {name}! Perintah ini berasal dari plugin eksternal."
   }
 }

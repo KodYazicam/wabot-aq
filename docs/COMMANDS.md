@@ -1,6 +1,6 @@
 # Command reference
 
-> Auto-generated from the command registry (`npm run docs`) — 85 commands, generated locale: `en` (en, es, id, tr).
+> Auto-generated from the command registry (`npm run docs`) — 86 commands, generated locale: `en` (en, es, id, tr).
 
 The prefix is configurable (`PREFIX` in .env, default `.`).
 
@@ -20,6 +20,7 @@ The prefix is configurable (`PREFIX` in .env, default `.`).
 | `.ping` | `.speed`, `.p` | — | Check the bot latency | everyone | 3s |
 | `.uptime` | `.runtime` | — | Show how long the bot has been running | everyone | 3s |
 | `.botinfo` | `.info` | — | Show bot statistics | everyone | 3s |
+| `.plugins` | `.plugin` | — | List commands loaded from the plugins/ directory | everyone | 3s |
 | `.stats` | — | — | Show the most used commands | everyone | 3s |
 
 ## Profile & RPG (`rpg`)

@@ -89,7 +89,10 @@
     "botinfo": "🤖 *{bot}* v{version}\n\n🖥️ Platform: {platform}\n🟢 Node: {node}\n⚡ Önek: {prefix}\n🌍 Dil: {locale} (mevcut: {locales})\n\n👥 Kullanıcı: {users}\n💬 Sohbet: {chats}\n👥 Grup: {groups}\n⚡ Komut: {commands}\n📊 Kullanılan komut: {used}",
     "statsEmpty": "📊 Henüz komut istatistiği yok.",
     "statsHeader": "📊 *En çok kullanılan komutlar*",
-    "statsLine": "{rank}. *{cmd}* — {total} kez ({success} ✓)"
+    "statsLine": "{rank}. *{cmd}* — {total} kez ({success} ✓)",
+    "pluginsEmpty": "🔌 Harici eklenti bulunamadı.\n\nBaşlamak için `plugins/my-plugin.js` oluştur ya da `plugins/_example.js` dosyasını kopyala.",
+    "pluginsHeader": "🔌 *Harici eklentiler* ({count} dosya)",
+    "pluginsLine": "• *{file}* — {commands}"
   },
   "lang": {
     "show": "🌍 Geçerli dil: *{current}*\n\nMevcut diller: {list}\n\n💡 Değiştirmek için: {examples}\n(gruplarda adminler grup dilini, özel sohbette sen kendi dilini ayarlarsın)",
@@ -327,5 +330,8 @@
   },
   "example": {
     "echo": "Şunu yazdın: *{text}*"
+  },
+  "plugins": {
+    "hello": "👋 Merhaba {name}! Bu komut harici bir eklentiden geliyor."
   }
 }

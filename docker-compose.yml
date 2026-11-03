@@ -7,5 +7,6 @@ services:
     volumes:
       - ./sessions:/app/sessions
       - ./data:/app/data
+      - ./plugins:/app/plugins
     ports:
       - "3000:3000"

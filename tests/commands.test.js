@@ -32,6 +32,75 @@ test('loads a command file and resolves aliases', async () => {
   assert.equal(registry.byCategory().get('test')?.length, 1)
 })
 
+test('loads commands from an extra plugin directory', async () => {
+  const builtin = fs.mkdtempSync(path.join(os.tmpdir(), 'wabot-builtin-'))
+  const plugins = fs.mkdtempSync(path.join(os.tmpdir(), 'wabot-plugins-'))
+  fs.writeFileSync(
+    path.join(builtin, 'base.js'),
+    "export const commands = [{ name: 'base', run () {} }]\n"
+  )
+  fs.writeFileSync(
+    path.join(plugins, 'extra.js'),
+    "export const commands = [{ name: 'extra', aliases: ['x'], category: 'plugin', run () {} }]\n"
+  )
+
+  const registry = new CommandRegistry(builtin, {
+    logger: silent,
+    hotReload: false,
+    extraDirs: [plugins]
+  })
+  await registry.loadAll()
+
+  assert.equal(registry.find('base')?.name, 'base')
+  assert.equal(registry.find('extra')?.name, 'extra')
+  assert.equal(registry.find('x')?.name, 'extra')
+  assert.equal(registry.files.size, 2)
+  assert.equal(registry.byCategory().get('plugin')?.length, 1)
+})
+
+test('ignores a missing extra plugin directory', async () => {
+  const builtin = fs.mkdtempSync(path.join(os.tmpdir(), 'wabot-builtin-'))
+  fs.writeFileSync(
+    path.join(builtin, 'base.js'),
+    "export const commands = [{ name: 'base', run () {} }]\n"
+  )
+
+  const registry = new CommandRegistry(builtin, {
+    logger: silent,
+    hotReload: false,
+    extraDirs: [path.join(builtin, 'does-not-exist')]
+  })
+  await registry.loadAll()
+
+  assert.equal(registry.find('base')?.name, 'base')
+  assert.equal(registry.files.size, 1)
+})
+
+test('the plugins command lists external command files', async () => {
+  const plugins = fs.mkdtempSync(path.join(os.tmpdir(), 'wabot-plugins-'))
+  fs.writeFileSync(
+    path.join(plugins, 'demo.js'),
+    "export const commands = [{ name: 'demo', category: 'other', run () {} }]\n"
+  )
+  const registry = new CommandRegistry(COMMANDS_DIR, {
+    logger: silent,
+    hotReload: false,
+    extraDirs: [plugins]
+  })
+  await registry.loadAll()
+
+  const replies = []
+  await registry.find('plugins').run({
+    registry,
+    t: (key, params) => (params ? `${key}:${JSON.stringify(params)}` : key),
+    reply: async (text) => replies.push(text)
+  })
+
+  assert.match(replies[0], /core\.pluginsHeader/)
+  assert.match(replies[0], /demo\.js/)
+  assert.match(replies[0], /demo/)
+})
+
 test('every bundled command file loads without duplicate registrations', async () => {
   const warnings = []
   const errors = []
