@@ -22,6 +22,24 @@ const CATEGORY_ICONS = {
   other: '📦'
 }
 
+const categoryRank = (cat) => {
+  const i = CATEGORY_ORDER.indexOf(cat)
+  return i < 0 ? CATEGORY_ORDER.length : i
+}
+
+function helpText (ctx, def) {
+  const perms = [].concat(def.permission || []).map(p => ctx.t(`menu.perm.${p}`)).join(', ') || ctx.t('menu.perm.everyone')
+  return [
+    ctx.t('menu.helpHeader', { cmd: def.name }),
+    `📜 ${def.description || '—'}`,
+    def.usage ? `⌨️ ${ctx.t('menu.usage')}: ${def.usage}` : '',
+    `🏷️ ${ctx.t('menu.category')}: ${ctx.t(`menu.cat.${def.category || 'other'}`)}`,
+    `⚡ ${ctx.t('menu.cooldown')}: ${def.cooldown ?? ctx.config.limits.commandCooldown}s`,
+    `🔑 ${ctx.t('menu.permission')}: ${perms}`,
+    def.aliases?.length ? `🔁 ${ctx.t('menu.aliases')}: ${def.aliases.map(a => ctx.usedPrefix + a).join(', ')}` : ''
+  ].filter(Boolean).join('\n')
+}
+
 export const commands = [
   {
     name: 'menu',
@@ -30,8 +48,32 @@ export const commands = [
     description: 'Show the command menu',
     async run (ctx) {
       const { registry, config } = ctx
-      const cats = registry.byCategory()
-      const commandCount = new Set(registry.commands.values()).size
+      const allCats = registry.byCategory()
+      const totalCount = new Set(registry.commands.values()).size
+      const requested = (ctx.args?.[0] || '').replace(ctx.usedPrefix, '').toLowerCase()
+
+      let cats = allCats
+      if (requested && requested !== 'all') {
+        const category = [...allCats.keys()].find(cat =>
+          cat.toLowerCase() === requested ||
+          ctx.t(`menu.cat.${cat}`).toLowerCase() === requested
+        )
+        if (!category) {
+          const list = [...allCats.keys()]
+            .sort((a, b) => categoryRank(a) - categoryRank(b))
+            .map(cat => `• *${ctx.usedPrefix}menu ${cat}* — ${ctx.t(`menu.cat.${cat}`)}`)
+            .join('\n')
+          return ctx.reply(ctx.t('menu.categoryNotFound', {
+            category: ctx.args[0],
+            list
+          }))
+        }
+        cats = new Map([[category, allCats.get(category)]])
+      }
+
+      const commandCount = cats === allCats
+        ? totalCount
+        : [...cats.values()].reduce((sum, defs) => sum + defs.length, 0)
       const lines = []
       lines.push(ctx.t('menu.header', {
         bot: config.botName,
@@ -43,11 +85,7 @@ export const commands = [
       lines.push(ctx.t('menu.tip', { prefix: ctx.usedPrefix, cmd: 'help' }))
       lines.push('')
 
-      const catRank = (cat) => {
-        const i = CATEGORY_ORDER.indexOf(cat)
-        return i < 0 ? CATEGORY_ORDER.length : i
-      }
-      for (const [cat, defs] of [...cats.entries()].sort((a, b) => catRank(a[0]) - catRank(b[0]))) {
+      for (const [cat, defs] of [...cats.entries()].sort((a, b) => categoryRank(a[0]) - categoryRank(b[0]))) {
         const icon = CATEGORY_ICONS[cat] || CATEGORY_ICONS.other
         lines.push(`┌─ ${icon} *${ctx.t(`menu.cat.${cat}`)}* · ${defs.length}`)
         for (const def of defs) {
@@ -70,18 +108,36 @@ export const commands = [
     async run (ctx) {
       const name = (ctx.args[0] || '').replace(ctx.usedPrefix, '').toLowerCase()
       if (!name) return ctx.reply(ctx.t('menu.helpUsage', { prefix: ctx.usedPrefix }))
-      const def = ctx.registry.find(name)
-      if (!def) return ctx.reply(ctx.t('menu.helpNotFound', { prefix: ctx.usedPrefix, cmd: name }))
-      const perms = [].concat(def.permission || []).map(p => ctx.t(`menu.perm.${p}`)).join(', ') || ctx.t('menu.perm.everyone')
-      const lines = [
-        ctx.t('menu.helpHeader', { cmd: def.name }),
-        `📜 ${def.description || '—'}`,
-        def.usage ? `⌨️ ${ctx.t('menu.usage')}: ${def.usage}` : '',
-        `🏷️ ${ctx.t('menu.category')}: ${ctx.t(`menu.cat.${def.category || 'other'}`)}`,
-        `⚡ ${ctx.t('menu.cooldown')}: ${def.cooldown ?? ctx.config.limits.commandCooldown}s`,
-        `🔑 ${ctx.t('menu.permission')}: ${perms}`,
-        def.aliases?.length ? `🔁 ${ctx.t('menu.aliases')}: ${def.aliases.map(a => ctx.usedPrefix + a).join(', ')}` : ''
-      ].filter(Boolean)
+
+      const exact = ctx.registry.find(name)
+      if (exact) return ctx.reply(helpText(ctx, exact))
+
+      const unique = [...new Set(ctx.registry.commands.values())]
+      const matches = unique.filter(def => {
+        const haystack = [
+          def.name,
+          ...(def.aliases || []),
+          def.description || '',
+          ctx.t(`menu.cat.${def.category || 'other'}`)
+        ].join(' ').toLowerCase()
+        return haystack.includes(name)
+      })
+
+      if (!matches.length) {
+        return ctx.reply(ctx.t('menu.searchEmpty', { prefix: ctx.usedPrefix, query: name }))
+      }
+      if (matches.length === 1) return ctx.reply(helpText(ctx, matches[0]))
+
+      const shown = matches.slice(0, 12)
+      const lines = [ctx.t('menu.searchHeader', { query: name, count: matches.length })]
+      for (const def of shown) {
+        lines.push(`• *${ctx.usedPrefix}${def.name}* — ${def.description || '—'}`)
+      }
+      if (matches.length > shown.length) {
+        lines.push(ctx.t('menu.searchMore', { count: matches.length - shown.length }))
+      }
+      lines.push('')
+      lines.push(ctx.t('menu.searchTip', { prefix: ctx.usedPrefix }))
       await ctx.reply(lines.join('\n'))
     }
   },

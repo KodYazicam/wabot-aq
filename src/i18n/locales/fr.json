@@ -82,7 +82,12 @@
       "admin": "admin du groupe",
       "botAdmin": "bot admin",
       "everyone": "tout le monde"
-    }
+    },
+    "categoryNotFound": "❓ Catégorie inconnue *{category}*.\n\nEssaie l'une de ces catégories :\n{list}",
+    "searchHeader": "🔎 *{count} résultats pour* `{query}`",
+    "searchMore": "…et {count} autres. Affine ta recherche.",
+    "searchEmpty": "❓ Aucune commande ne correspond à *{query}*. Essaie *{prefix}menu*.",
+    "searchTip": "💡 Détails : *{prefix}help <commande>*"
   },
   "core": {
     "ping": "🏓 Pong !\n⚡ Latence : {ping}ms\n⏱️ Durée : {uptime}\n💾 RAM : {ram}",
@@ -245,7 +250,9 @@
     "setDesc": "✅ Description mise à jour.",
     "pollUsage": "⌨️ Utilisation : *{prefix}poll <question>|<option 1>|<option 2>…*\n\nExemple : *{prefix}poll Soirée cinéma ?|Vendredi|Samedi*",
     "replyToMessage": "📎 Réponds au message que tu veux supprimer.",
-    "delNoPerm": "🚫 Tu ne peux supprimer que tes propres messages (ou tu dois être admin du groupe)."
+    "delNoPerm": "🚫 Tu ne peux supprimer que tes propres messages (ou tu dois être admin du groupe).",
+    "byeOn": "✅ Messages d'adieu ACTIVÉS.",
+    "byeOff": "❌ Messages d'adieu DÉSACTIVÉS."
   },
   "fun": {
     "ballUsage": "🎱 Pose-moi une question ! Utilisation : *{cmd} <question>*",
@@ -293,7 +300,16 @@
     "rrClick": "🔫 *clic* — chambre vide. Tu vis… pour l'instant."
   },
   "rpg": {
-    "roles": ["Débutant", "Novice", "Guerrier", "Élite", "Maître", "Grand maître", "Légende", "Mythique"],
+    "roles": [
+      "Débutant",
+      "Novice",
+      "Guerrier",
+      "Élite",
+      "Maître",
+      "Grand maître",
+      "Légende",
+      "Mythique"
+    ],
     "premiumYes": "oui ⭐",
     "premiumNo": "non",
     "profile": "👤 *{name}*\n\n🏷️ Niveau : *{level}* — {role}\n✨ XP : {exp} ({next} avant le niveau suivant)\n{bar} {progress}%\n\n🎟️ Limite : {limit}\n⭐ Premium : {premium}\n💬 Messages : {msgs}\n⚠️ Avertissements : {warnings}",

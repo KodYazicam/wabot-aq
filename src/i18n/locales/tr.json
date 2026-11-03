@@ -82,7 +82,12 @@
       "admin": "grup admini",
       "botAdmin": "bot admin",
       "everyone": "herkes"
-    }
+    },
+    "categoryNotFound": "❓ Bilinmeyen kategori: *{category}*.\n\nŞunlardan birini dene:\n{list}",
+    "searchHeader": "🔎 *{query}* için *{count} sonuç*",
+    "searchMore": "…ve {count} tane daha. Aramayı daralt.",
+    "searchEmpty": "❓ *{query}* ile eşleşen komut yok. *{prefix}menu* ile listeye bak.",
+    "searchTip": "💡 Detay: *{prefix}help <komut>*"
   },
   "core": {
     "ping": "🏓 Pong!\n⚡ Gecikme: {ping}ms\n⏱️ Çalışma: {uptime}\n💾 RAM: {ram}",
@@ -245,7 +250,9 @@
     "setDesc": "✅ Açıklama güncellendi.",
     "pollUsage": "⌨️ Kullanım: *{prefix}poll <soru>|<seçenek 1>|<seçenek 2>…*\n\nÖrnek: *{prefix}poll Film gecesi mi?|Cuma|Cumartesi*",
     "replyToMessage": "📎 Silmek istediğin mesaja yanıt ver.",
-    "delNoPerm": "🚫 Yalnızca kendi mesajlarını silebilirsin (ya da grup admini olman gerekir)."
+    "delNoPerm": "🚫 Yalnızca kendi mesajlarını silebilirsin (ya da grup admini olman gerekir).",
+    "byeOn": "✅ Gruptan ayrılma mesajları AÇIK.",
+    "byeOff": "❌ Gruptan ayrılma mesajları KAPALI."
   },
   "fun": {
     "ballUsage": "🎱 Bana bir şey sor! Kullanım: *{cmd} <soru>*",
@@ -293,7 +300,16 @@
     "rrClick": "🔫 *klik* — boş fişek. Yaşıyorsun… şimdilik."
   },
   "rpg": {
-    "roles": ["Yeni Başlayan", "Acemi", "Savaşçı", "Elit", "Usta", "Büyük Usta", "Efsane", "Mitik"],
+    "roles": [
+      "Yeni Başlayan",
+      "Acemi",
+      "Savaşçı",
+      "Elit",
+      "Usta",
+      "Büyük Usta",
+      "Efsane",
+      "Mitik"
+    ],
     "premiumYes": "evet ⭐",
     "premiumNo": "hayır",
     "profile": "👤 *{name}*\n\n🏷️ Seviye: *{level}* — {role}\n✨ XP: {exp} (sonraki seviyeye {next})\n{bar} %{progress}\n\n🎟️ Limit: {limit}\n⭐ Premium: {premium}\n💬 Mesaj: {msgs}\n⚠️ Uyarı: {warnings}",

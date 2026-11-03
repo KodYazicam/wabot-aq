@@ -1,6 +1,6 @@
 # Command reference
 
-> Auto-generated from the command registry (`npm run docs`) — 87 commands, generated locale: `en` (de, en, es, fr, id, tr).
+> Auto-generated from the command registry (`npm run docs`) — 88 commands, generated locale: `en` (de, en, es, fr, id, tr).
 
 The prefix is configurable (`PREFIX` in .env, default `.`).
 
@@ -74,6 +74,7 @@ The prefix is configurable (`PREFIX` in .env, default `.`).
 | `.welcome` | — | — | Toggle welcome messages for new members | group only + group admin | 3s |
 | `.setwelcome` | — | `<text>` | Set the welcome message text | group only + group admin | 3s |
 | `.setbye` | — | `<text>` | Set the goodbye message text | group only + group admin | 3s |
+| `.bye` | — | — | Toggle goodbye messages for members who leave | group only + group admin | 3s |
 | `.antilink` | — | — | Delete WhatsApp group invite links posted by members | group only + group admin | 3s |
 | `.antidelete` | — | — | Recover deleted messages in this group | group only + group admin | 3s |
 | `.detect` | — | — | Announce admin and group setting changes | group only + group admin | 3s |
