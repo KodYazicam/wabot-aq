@@ -1,20 +1,31 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
-
+about: Suggest a new command or improvement
+title: "[feature] "
+labels: ["enhancement"]
+assignees: ""
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Problem
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+<!-- What is frustrating, missing, or harder than it should be? -->
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Proposed solution
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+<!-- Describe the command, option, or behaviour you would like. Include example usage if useful. -->
+
+## Alternatives considered
+
+<!-- Any workaround or different approach you have tried. -->
+
+## Scope
+
+- [ ] New command
+- [ ] Change to an existing command
+- [ ] Translation / i18n
+- [ ] Documentation
+- [ ] CI, Docker, or infrastructure
+
+## Additional context
+
+<!-- Mockups, examples from other bots, links, or related issues. Never include secrets or session data. -->
