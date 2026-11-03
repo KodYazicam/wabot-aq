@@ -359,5 +359,17 @@
   },
   "plugins": {
     "hello": "👋 ¡Hola {name}! Este comando viene de un plugin externo."
+  },
+  "remind": {
+    "usage": "⌨️ Uso: *{prefix}remind <10m|2h|1d> <texto>*\nEjemplo: *{prefix}remind 10m Beber agua*",
+    "tooLong": "⌛ Los recordatorios pueden ser como máximo 365 días después.",
+    "created": "⏰ ¡Recordatorio creado!\n\n🆔 `{id}`\n⏱️ En {when} ({at})\n📝 {text}\n\nCancelar: *{prefix}delremind {id}*",
+    "empty": "⏰ No tienes recordatorios activos en este chat.",
+    "header": "⏰ *Tus recordatorios*",
+    "line": "• `{id}` — en {when} · {text}",
+    "notFound": "❓ Recordatorio `{id}` no encontrado en este chat.",
+    "deleted": "✅ Recordatorio `{id}` eliminado.",
+    "delUsage": "⌨️ Uso: *{prefix}delremind <id>*",
+    "fired": "⏰ Recordatorio de {user}: {text}"
   }
 }

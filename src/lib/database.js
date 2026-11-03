@@ -53,7 +53,7 @@ export const getNextLevelExp = (level) => level * level * 100
 export class Database {
   constructor (file) {
     this.file = file
-    this.data = { users: {}, chats: {}, settings: {}, stats: {} }
+    this.data = { users: {}, chats: {}, settings: {}, stats: {}, reminders: {} }
     this._timer = null
     this._saving = false
     this._autosaveMs = 0
@@ -76,7 +76,8 @@ export class Database {
           users: raw.users || {},
           chats: raw.chats || {},
           settings: raw.settings || {},
-          stats: raw.stats || {}
+          stats: raw.stats || {},
+          reminders: raw.reminders || {}
         }
       }
     } catch (e) {
@@ -89,12 +90,13 @@ export class Database {
             users: raw.users || {},
             chats: raw.chats || {},
             settings: raw.settings || {},
-            stats: raw.stats || {}
+            stats: raw.stats || {},
+            reminders: raw.reminders || {}
           }
           return this.data
         }
       } catch { /* fall through to fresh state */ }
-      this.data = { users: {}, chats: {}, settings: {}, stats: {} }
+      this.data = { users: {}, chats: {}, settings: {}, stats: {}, reminders: {} }
       throw new Error(`database unreadable: ${e.message}`)
     }
     this._lastSaved = JSON.stringify(this.data, null, 2)

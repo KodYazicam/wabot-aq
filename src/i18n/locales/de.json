@@ -359,5 +359,17 @@
   },
   "plugins": {
     "hello": "👋 Hallo {name}! Dieser Befehl kommt von einem externen Plugin."
+  },
+  "remind": {
+    "usage": "⌨️ Verwendung: *{prefix}remind <10m|2h|1d> <Text>*\nBeispiel: *{prefix}remind 10m Wasser trinken*",
+    "tooLong": "⌛ Erinnerungen können höchstens 365 Tage in der Zukunft liegen.",
+    "created": "⏰ Erinnerung erstellt!\n\n🆔 `{id}`\n⏱️ In {when} ({at})\n📝 {text}\n\nAbbrechen: *{prefix}delremind {id}*",
+    "empty": "⏰ Du hast in diesem Chat keine aktiven Erinnerungen.",
+    "header": "⏰ *Deine Erinnerungen*",
+    "line": "• `{id}` — in {when} · {text}",
+    "notFound": "❓ Erinnerung `{id}` in diesem Chat nicht gefunden.",
+    "deleted": "✅ Erinnerung `{id}` gelöscht.",
+    "delUsage": "⌨️ Verwendung: *{prefix}delremind <id>*",
+    "fired": "⏰ Erinnerung für {user}: {text}"
   }
 }

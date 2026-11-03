@@ -359,5 +359,17 @@
   },
   "plugins": {
     "hello": "👋 Hello {name}! This command comes from an external plugin."
+  },
+  "remind": {
+    "usage": "⌨️ Usage: *{prefix}remind <10m|2h|1d> <text>*\nExample: *{prefix}remind 10m Drink water*",
+    "tooLong": "⌛ Reminders can be at most 365 days away.",
+    "created": "⏰ Reminder set!\n\n🆔 `{id}`\n⏱️ In {when} ({at})\n📝 {text}\n\nCancel: *{prefix}delremind {id}*",
+    "empty": "⏰ You have no active reminders in this chat.",
+    "header": "⏰ *Your reminders*",
+    "line": "• `{id}` — in {when} · {text}",
+    "notFound": "❓ Reminder `{id}` not found in this chat.",
+    "deleted": "✅ Reminder `{id}` deleted.",
+    "delUsage": "⌨️ Usage: *{prefix}delremind <id>*",
+    "fired": "⏰ {user} reminder: {text}"
   }
 }

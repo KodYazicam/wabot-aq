@@ -359,5 +359,17 @@
   },
   "plugins": {
     "hello": "👋 Bonjour {name} ! Cette commande vient d'un plugin externe."
+  },
+  "remind": {
+    "usage": "⌨️ Utilisation : *{prefix}remind <10m|2h|1d> <texte>*\nExemple : *{prefix}remind 10m Boire de l'eau*",
+    "tooLong": "⌛ Les rappels peuvent être au maximum à 365 jours.",
+    "created": "⏰ Rappel créé !\n\n🆔 `{id}`\n⏱️ Dans {when} ({at})\n📝 {text}\n\nAnnuler : *{prefix}delremind {id}*",
+    "empty": "⏰ Tu n'as aucun rappel actif dans ce chat.",
+    "header": "⏰ *Tes rappels*",
+    "line": "• `{id}` — dans {when} · {text}",
+    "notFound": "❓ Rappel `{id}` introuvable dans ce chat.",
+    "deleted": "✅ Rappel `{id}` supprimé.",
+    "delUsage": "⌨️ Utilisation : *{prefix}delremind <id>*",
+    "fired": "⏰ Rappel de {user} : {text}"
   }
 }
