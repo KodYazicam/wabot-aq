@@ -1,6 +1,6 @@
 # Command reference
 
-> Auto-generated from the command registry (`npm run docs`) — 94 commands, generated locale: `en` (de, en, es, fr, id, tr).
+> Auto-generated from the command registry (`npm run docs`) — 95 commands, generated locale: `en` (de, en, es, fr, id, tr).
 
 The prefix is configurable (`PREFIX` in .env, default `.`).
 
@@ -124,7 +124,8 @@ The prefix is configurable (`PREFIX` in .env, default `.`).
 | `.join` | — | `<link>` | Join a group via invite link | real owner | 3s |
 | `.leave` | `.ayrıl`, `.ayril` | — | Leave the current group | owner | 3s |
 | `.warn` | — | — | Warn a user (3 warnings → ban) | moderator | 3s |
-| `.dbstats` | `.dbinfo` | — | Show database size and save metrics | owner | 3s |
+| `.dbbackup` | `.dbb` | — | Create a rotating database backup | owner | 10s |
+| `.dbstats` | `.dbinfo` | — | Show database size, schema and backup metrics | owner | 3s |
 
 ## Tools (`tools`)
 

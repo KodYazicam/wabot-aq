@@ -352,7 +352,8 @@
     "leaving": "👋 Tschüss!",
     "warned": "⚠️ {users} wurde verwarnt. 3 Verwarnungen = Bann.",
     "warnBanned": "🚫 {users} hat 3 Verwarnungen erreicht und wurde gebannt.",
-    "dbStats": "🗄️ *Datenbank*\n\n📁 Datei: {file}\n💾 Größe: {size}\n👥 Benutzer: {users}\n💬 Chats: {chats}\n⚙️ Einstellungen: {settings}\n📊 Befehlsstatistik: {stats}\n\n⏱️ Autosave: {autosave}\n✅ Schreibvorgänge: {saves}\n⏭️ Übersprungen: {skips}\n⚡ Letzter Schreibvorgang: {lastSaveMs}ms\n🕒 Zuletzt gespeichert: {lastSaved}\n🕒 Letzte Prüfung: {lastChecked}\n\n🤖 Laufzeit: {uptime}"
+    "dbStats": "🗄️ *Datenbank*\n\n📁 Datei: {file}\n💾 Größe: {size}\n🧩 Schema: v{schema}\n👥 Benutzer: {users}\n💬 Chats: {chats}\n⚙️ Einstellungen: {settings}\n📊 Befehlsstatistik: {stats}\n🗂️ Sicherungen: {backups} in {backupDir}\n\n⏱️ Autosave: {autosave}\n✅ Schreibvorgänge: {saves}\n⏭️ Übersprungen: {skips}\n⚡ Letzter Schreibvorgang: {lastSaveMs}ms\n🕒 Zuletzt gespeichert: {lastSaved}\n🕒 Letzte Prüfung: {lastChecked}\n\n🤖 Laufzeit: {uptime}",
+    "dbBackup": "✅ Datenbank-Sicherung erstellt:\n{file}\n\n🗂️ Aufbewahrte Sicherungen: {backups}"
   },
   "example": {
     "echo": "Du hast gesagt: *{text}*"

@@ -352,7 +352,8 @@
     "leaving": "👋 Au revoir !",
     "warned": "⚠️ {users} a été averti. 3 avertissements = bannissement.",
     "warnBanned": "🚫 {users} a atteint 3 avertissements et a été banni.",
-    "dbStats": "🗄️ *Base de données*\n\n📁 Fichier : {file}\n💾 Taille : {size}\n👥 Utilisateurs : {users}\n💬 Chats : {chats}\n⚙️ Paramètres : {settings}\n📊 Statistiques : {stats}\n\n⏱️ Sauvegarde auto : {autosave}\n✅ Écritures : {saves}\n⏭️ Ignorées : {skips}\n⚡ Dernière écriture : {lastSaveMs}ms\n🕒 Dernière sauvegarde : {lastSaved}\n🕒 Dernière vérification : {lastChecked}\n\n🤖 Durée : {uptime}"
+    "dbStats": "🗄️ *Base de données*\n\n📁 Fichier : {file}\n💾 Taille : {size}\n🧩 Schéma : v{schema}\n👥 Utilisateurs : {users}\n💬 Chats : {chats}\n⚙️ Paramètres : {settings}\n📊 Statistiques : {stats}\n🗂️ Sauvegardes : {backups} dans {backupDir}\n\n⏱️ Sauvegarde auto : {autosave}\n✅ Écritures : {saves}\n⏭️ Ignorées : {skips}\n⚡ Dernière écriture : {lastSaveMs}ms\n🕒 Dernière sauvegarde : {lastSaved}\n🕒 Dernière vérification : {lastChecked}\n\n🤖 Durée : {uptime}",
+    "dbBackup": "✅ Sauvegarde de la base créée :\n{file}\n\n🗂️ Sauvegardes conservées : {backups}"
   },
   "example": {
     "echo": "Tu as dit : *{text}*"

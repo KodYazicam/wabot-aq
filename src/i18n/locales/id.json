@@ -352,7 +352,8 @@
     "leaving": "👋 Sampai jumpa!",
     "warned": "⚠️ {users} telah diperingatkan. 3 peringatan = larangan.",
     "warnBanned": "🚫 {users} mencapai 3 peringatan dan dilarang.",
-    "dbStats": "🗄️ *Database*\n\n📁 File: {file}\n💾 Ukuran: {size}\n👥 Pengguna: {users}\n💬 Chat: {chats}\n⚙️ Pengaturan: {settings}\n📊 Statistik perintah: {stats}\n\n⏱️ Autosave: {autosave}\n✅ Penulisan: {saves}\n⏭️ Dilewati: {skips}\n⚡ Penulisan terakhir: {lastSaveMs}ms\n🕒 Terakhir disimpan: {lastSaved}\n🕒 Pemeriksaan terakhir: {lastChecked}\n\n🤖 Aktif: {uptime}"
+    "dbStats": "🗄️ *Database*\n\n📁 File: {file}\n💾 Ukuran: {size}\n🧩 Skema: v{schema}\n👥 Pengguna: {users}\n💬 Chat: {chats}\n⚙️ Pengaturan: {settings}\n📊 Statistik perintah: {stats}\n🗂️ Cadangan: {backups} di {backupDir}\n\n⏱️ Autosave: {autosave}\n✅ Penulisan: {saves}\n⏭️ Dilewati: {skips}\n⚡ Penulisan terakhir: {lastSaveMs}ms\n🕒 Terakhir disimpan: {lastSaved}\n🕒 Pemeriksaan terakhir: {lastChecked}\n\n🤖 Aktif: {uptime}",
+    "dbBackup": "✅ Cadangan database dibuat:\n{file}\n\n🗂️ Cadangan disimpan: {backups}"
   },
   "example": {
     "echo": "Kamu bilang: *{text}*"
