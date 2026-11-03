@@ -224,10 +224,26 @@ export const commands = [
     }
   },
   {
+    name: 'dbbackup',
+    aliases: ['dbb'],
+    category: 'owner',
+    description: 'Create a rotating database backup',
+    permission: 'owner',
+    cooldown: 10,
+    async run (ctx) {
+      const result = ctx.db.backup()
+      await ctx.reply(ctx.t('owner.dbBackup', {
+        file: result.file,
+        backups: result.count,
+        pruned: result.pruned
+      }))
+    }
+  },
+  {
     name: 'dbstats',
     aliases: ['dbinfo'],
     category: 'owner',
-    description: 'Show database size and save metrics',
+    description: 'Show database size, schema and backup metrics',
     permission: 'owner',
     async run (ctx) {
       const info = ctx.db.info()
@@ -236,10 +252,13 @@ export const commands = [
       await ctx.reply(ctx.t('owner.dbStats', {
         file: info.file,
         size: fmtBytes(info.size),
+        schema: info.schemaVersion,
         users: info.users,
         chats: info.chats,
         settings: info.settings,
         stats: info.stats,
+        backups: info.backups,
+        backupDir: info.backupDir,
         autosave: msToTime(info.autosaveMs),
         saves: info.saves,
         skips: info.skips,

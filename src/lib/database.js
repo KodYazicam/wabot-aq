@@ -6,6 +6,27 @@ import path from 'node:path'
  * disk writes + scheduled autosave + save on exit. Replaces the old
  * lowdb/cloudDB layer of the original bot.
  */
+export const SCHEMA_VERSION = 1
+const BACKUP_KEEP = 7
+const BACKUP_INTERVAL_MS = 24 * 60 * 60 * 1000
+
+const objectOrEmpty = (value) =>
+  value && typeof value === 'object' && !Array.isArray(value) ? value : {}
+
+const normalizeData = (raw) => {
+  const source = raw && typeof raw === 'object' ? raw : {}
+  return {
+    schemaVersion: Number.isInteger(source.schemaVersion) && source.schemaVersion > 0
+      ? source.schemaVersion
+      : SCHEMA_VERSION,
+    users: objectOrEmpty(source.users),
+    chats: objectOrEmpty(source.chats),
+    settings: objectOrEmpty(source.settings),
+    stats: objectOrEmpty(source.stats),
+    reminders: objectOrEmpty(source.reminders)
+  }
+}
+
 const USER_DEFAULTS = () => ({
   name: '',
   exp: 0,
@@ -53,7 +74,7 @@ export const getNextLevelExp = (level) => level * level * 100
 export class Database {
   constructor (file) {
     this.file = file
-    this.data = { users: {}, chats: {}, settings: {}, stats: {}, reminders: {} }
+    this.data = normalizeData({})
     this._timer = null
     this._saving = false
     this._autosaveMs = 0
@@ -61,24 +82,24 @@ export class Database {
     this._lastSavedAt = 0
     this._lastCheckedAt = 0
     this._lastSaveMs = 0
+    this._lastBackupAt = 0
+    this._backupSeq = 0
     this._saves = 0
     this._skips = 0
   }
 
   async load () {
     this._lastSaved = null
+    let needsWrite = false
     try {
       if (fs.existsSync(this.file)) {
         // boot backup — cheap insurance against corruption
         try { fs.copyFileSync(this.file, `${this.file}.backup`) } catch { /* ignore */ }
         const raw = JSON.parse(fs.readFileSync(this.file, 'utf8'))
-        this.data = {
-          users: raw.users || {},
-          chats: raw.chats || {},
-          settings: raw.settings || {},
-          stats: raw.stats || {},
-          reminders: raw.reminders || {}
-        }
+        const wasCurrent = raw?.schemaVersion === SCHEMA_VERSION
+        this.data = normalizeData(raw)
+        this.migrate()
+        needsWrite = !wasCurrent
       }
     } catch (e) {
       // Back up the broken file and try the boot backup, else start fresh
@@ -86,21 +107,29 @@ export class Database {
       try {
         if (fs.existsSync(`${this.file}.backup`)) {
           const raw = JSON.parse(fs.readFileSync(`${this.file}.backup`, 'utf8'))
-          this.data = {
-            users: raw.users || {},
-            chats: raw.chats || {},
-            settings: raw.settings || {},
-            stats: raw.stats || {},
-            reminders: raw.reminders || {}
-          }
+          const wasCurrent = raw?.schemaVersion === SCHEMA_VERSION
+          this.data = normalizeData(raw)
+          this.migrate()
+          this._lastSaved = wasCurrent ? JSON.stringify(this.data, null, 2) : null
           return this.data
         }
       } catch { /* fall through to fresh state */ }
-      this.data = { users: {}, chats: {}, settings: {}, stats: {}, reminders: {} }
+      this.data = normalizeData({})
       throw new Error(`database unreadable: ${e.message}`)
     }
-    this._lastSaved = JSON.stringify(this.data, null, 2)
+    this._lastSaved = needsWrite ? null : JSON.stringify(this.data, null, 2)
     return this.data
+  }
+
+  /**
+   * Apply schema migrations. Version 1 is the first explicit schema; future
+   * migrations should be added here without touching the load path.
+   */
+  migrate () {
+    if (!Number.isInteger(this.data.schemaVersion) || this.data.schemaVersion < SCHEMA_VERSION) {
+      this.data.schemaVersion = SCHEMA_VERSION
+    }
+    return this.data.schemaVersion
   }
 
   /**
@@ -139,13 +168,69 @@ export class Database {
   startAutosave (intervalMs = 60_000) {
     if (this._timer) clearInterval(this._timer)
     this._autosaveMs = intervalMs
-    this._timer = setInterval(() => this.save().catch(() => {}), intervalMs)
+    this._timer = setInterval(() => {
+      this.save().catch(() => {})
+      this.backupIfDue()
+    }, intervalMs)
     this._timer.unref?.()
   }
 
   stop () {
     if (this._timer) clearInterval(this._timer)
     return this.save()
+  }
+
+  backupDir () {
+    return path.join(path.dirname(this.file), 'backups')
+  }
+
+  backupFiles () {
+    try {
+      return fs.readdirSync(this.backupDir())
+        .filter(name => /^database-.*\.json$/.test(name))
+        .sort()
+    } catch {
+      return []
+    }
+  }
+
+  /**
+   * Write a timestamped snapshot and keep only the newest `keep` files.
+   * Returns the created path and retention details.
+   */
+  backup ({ keep = BACKUP_KEEP } = {}) {
+    const retain = Math.max(1, Number(keep) || BACKUP_KEEP)
+    const dir = this.backupDir()
+    fs.mkdirSync(dir, { recursive: true })
+
+    this._backupSeq++
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-')
+    const file = path.join(dir, `database-${stamp}-${this._backupSeq}.json`)
+    fs.writeFileSync(file, JSON.stringify(this.data, null, 2))
+
+    const files = this.backupFiles()
+    const remove = files.slice(0, Math.max(0, files.length - retain))
+    for (const name of remove) {
+      try { fs.unlinkSync(path.join(dir, name)) } catch { /* ignore pruned file */ }
+    }
+
+    this._lastBackupAt = Date.now()
+    return {
+      file,
+      dir,
+      count: this.backupFiles().length,
+      pruned: remove.length
+    }
+  }
+
+  /** Automatic daily backup guard; returns null when not due. */
+  backupIfDue ({ keep = BACKUP_KEEP, intervalMs = BACKUP_INTERVAL_MS } = {}) {
+    if (this._lastBackupAt && Date.now() - this._lastBackupAt < intervalMs) return null
+    try {
+      return this.backup({ keep })
+    } catch {
+      return null
+    }
   }
 
   /** Snapshot for diagnostics (`.dbstats`) without exposing the data itself. */
@@ -155,10 +240,15 @@ export class Database {
     return {
       file: this.file,
       size,
+      schemaVersion: this.data.schemaVersion,
       users: Object.keys(this.data.users).length,
       chats: Object.keys(this.data.chats).length,
       settings: Object.keys(this.data.settings).length,
       stats: Object.keys(this.data.stats).length,
+      reminders: Object.keys(this.data.reminders).length,
+      backups: this.backupFiles().length,
+      backupDir: this.backupDir(),
+      lastBackupAt: this._lastBackupAt,
       autosaveMs: this._autosaveMs,
       lastSavedAt: this._lastSavedAt,
       lastCheckedAt: this._lastCheckedAt,
