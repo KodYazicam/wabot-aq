@@ -213,6 +213,7 @@
     "demoted": "📉 {users} sudah bukan admin lagi.",
     "addUsage": "⌨️ Cara pakai: *{cmd} <nomor>* (dengan kode negara)",
     "added": "✅ {user} ditambahkan ke grup.",
+    "alreadyIn": "ℹ️ {user} sudah ada di grup ini.",
     "inviteDM": "👤 Kamu diundang ke grup *{group}*.\nGabung lewat link ini:\nhttps://chat.whatsapp.com/{code}",
     "addFailed": "⚠️ {user} tidak bisa ditambahkan (pengaturan privasi). Link undangan sudah kaku lewat DM.",
     "link": "🔗 Link undangan grup:\n{url}",

@@ -54,4 +54,15 @@ test('every bundled command file loads without duplicate registrations', async (
     [],
     'duplicate command names or aliases found'
   )
+
+  const groupCommands = [
+    'tagall', 'hidetag', 'kick', 'add', 'promote', 'demote',
+    'grouplink', 'revoke', 'groupinfo', 'poll', 'welcome', 'setwelcome',
+    'setbye', 'antilink', 'antidelete', 'detect', 'opengroup', 'closegroup',
+    'setsubject', 'setdesc', 'del'
+  ]
+  for (const name of groupCommands) {
+    assert.ok(registry.find(name), `missing group command: ${name}`)
+  }
+  assert.ok(registry.byCategory().get('group')?.length >= groupCommands.length)
 })
