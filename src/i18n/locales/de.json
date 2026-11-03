@@ -82,7 +82,12 @@
       "admin": "Gruppen-Admin",
       "botAdmin": "Bot ist Admin",
       "everyone": "alle"
-    }
+    },
+    "categoryNotFound": "❓ Unbekannte Kategorie *{category}*.\n\nVersuche eine davon:\n{list}",
+    "searchHeader": "🔎 *{count} Treffer für* `{query}`",
+    "searchMore": "…und {count} weitere. Verfeinere die Suche.",
+    "searchEmpty": "❓ Keine Befehle passen zu *{query}*. Versuche *{prefix}menu*.",
+    "searchTip": "💡 Details: *{prefix}help <Befehl>*"
   },
   "core": {
     "ping": "🏓 Pong!\n⚡ Latenz: {ping}ms\n⏱️ Laufzeit: {uptime}\n💾 RAM: {ram}",
@@ -245,7 +250,9 @@
     "setDesc": "✅ Beschreibung aktualisiert.",
     "pollUsage": "⌨️ Nutzung: *{prefix}poll <Frage>|<Option 1>|<Option 2>…*\n\nBeispiel: *{prefix}poll Filmabend?|Freitag|Samstag*",
     "replyToMessage": "📎 Antworte auf die Nachricht, die du löschen möchtest.",
-    "delNoPerm": "🚫 Du kannst nur deine eigenen Nachrichten löschen (oder musst Gruppen-Admin sein)."
+    "delNoPerm": "🚫 Du kannst nur deine eigenen Nachrichten löschen (oder musst Gruppen-Admin sein).",
+    "byeOn": "✅ Abschiedsnachrichten AN.",
+    "byeOff": "❌ Abschiedsnachrichten AUS."
   },
   "fun": {
     "ballUsage": "🎱 Frag mich etwas! Nutzung: *{cmd} <Frage>*",
@@ -293,7 +300,16 @@
     "rrClick": "🔫 *klick* — leere Kammer. Du lebst… vorerst."
   },
   "rpg": {
-    "roles": ["Anfänger", "Neuling", "Krieger", "Elite", "Meister", "Großmeister", "Legende", "Mythos"],
+    "roles": [
+      "Anfänger",
+      "Neuling",
+      "Krieger",
+      "Elite",
+      "Meister",
+      "Großmeister",
+      "Legende",
+      "Mythos"
+    ],
     "premiumYes": "ja ⭐",
     "premiumNo": "nein",
     "profile": "👤 *{name}*\n\n🏷️ Level: *{level}* — {role}\n✨ XP: {exp} ({next} bis zum nächsten Level)\n{bar} {progress}%\n\n🎟️ Limit: {limit}\n⭐ Premium: {premium}\n💬 Nachrichten: {msgs}\n⚠️ Verwarnungen: {warnings}",

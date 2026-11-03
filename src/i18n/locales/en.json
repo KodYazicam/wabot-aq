@@ -82,7 +82,12 @@
       "admin": "group admin",
       "botAdmin": "bot is admin",
       "everyone": "everyone"
-    }
+    },
+    "categoryNotFound": "❓ Unknown category *{category}*.\n\nTry one of these:\n{list}",
+    "searchHeader": "🔎 *{count} matches for* `{query}`",
+    "searchMore": "…and {count} more. Narrow your search.",
+    "searchEmpty": "❓ No commands match *{query}*. Try *{prefix}menu*.",
+    "searchTip": "💡 Details: *{prefix}help <command>*"
   },
   "core": {
     "ping": "🏓 Pong!\n⚡ Latency: {ping}ms\n⏱️ Uptime: {uptime}\n💾 RAM: {ram}",
@@ -245,7 +250,9 @@
     "setDesc": "✅ Description updated.",
     "pollUsage": "⌨️ Usage: *{prefix}poll <question>|<option 1>|<option 2>…*\n\nExample: *{prefix}poll Movie night?|Friday|Saturday*",
     "replyToMessage": "📎 Reply to the message you want to delete.",
-    "delNoPerm": "🚫 You can only delete your own messages (or you need to be a group admin)."
+    "delNoPerm": "🚫 You can only delete your own messages (or you need to be a group admin).",
+    "byeOn": "✅ Goodbye messages ON.",
+    "byeOff": "❌ Goodbye messages OFF."
   },
   "fun": {
     "ballUsage": "🎱 Ask me something! Usage: *{cmd} <question>*",
@@ -293,7 +300,16 @@
     "rrClick": "🔫 *click* — empty chamber. You live… for now."
   },
   "rpg": {
-    "roles": ["Beginner", "Novice", "Warrior", "Elite", "Master", "Grandmaster", "Legend", "Mythic"],
+    "roles": [
+      "Beginner",
+      "Novice",
+      "Warrior",
+      "Elite",
+      "Master",
+      "Grandmaster",
+      "Legend",
+      "Mythic"
+    ],
     "premiumYes": "yes ⭐",
     "premiumNo": "no",
     "profile": "👤 *{name}*\n\n🏷️ Level: *{level}* — {role}\n✨ XP: {exp} ({next} to next level)\n{bar} {progress}%\n\n🎟️ Limit: {limit}\n⭐ Premium: {premium}\n💬 Messages: {msgs}\n⚠️ Warnings: {warnings}",

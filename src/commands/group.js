@@ -267,6 +267,16 @@ export const commands = [
     }
   },
   {
+    name: 'bye',
+    category: 'group',
+    description: 'Toggle goodbye messages for members who leave',
+    permission: ['group', 'admin'],
+    async run (ctx) {
+      ctx.chat.bye = !ctx.chat.bye
+      await ctx.reply(ctx.t(ctx.chat.bye ? 'group.byeOn' : 'group.byeOff'))
+    }
+  },
+  {
     name: 'antilink',
     category: 'group',
     description: 'Delete WhatsApp group invite links posted by members',

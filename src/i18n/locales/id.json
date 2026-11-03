@@ -82,7 +82,12 @@
       "admin": "admin grup",
       "botAdmin": "bot admin",
       "everyone": "semua orang"
-    }
+    },
+    "categoryNotFound": "❓ Kategori tidak dikenal *{category}*.\n\nCoba salah satu:\n{list}",
+    "searchHeader": "🔎 *{count} hasil untuk* `{query}`",
+    "searchMore": "…dan {count} lagi. Persempit pencarian.",
+    "searchEmpty": "❓ Tidak ada perintah yang cocok dengan *{query}*. Coba *{prefix}menu*.",
+    "searchTip": "💡 Detail: *{prefix}help <perintah>*"
   },
   "core": {
     "ping": "🏓 Pong!\n⚡ Latensi: {ping}ms\n⏱️ Aktif: {uptime}\n💾 RAM: {ram}",
@@ -245,7 +250,9 @@
     "setDesc": "✅ Deskripsi diperbarui.",
     "pollUsage": "⌨️ Cara pakai: *{prefix}poll <pertanyaan>|<opsi 1>|<opsi 2>…*\n\nContoh: *{prefix}poll Malam nonton?|Jumat|Sabtu*",
     "replyToMessage": "📎 Balas pesan yang ingin kamu hapus.",
-    "delNoPerm": "🚫 Kamu hanya bisa menghapus pesanmu sendiri (atau harus jadi admin grup)."
+    "delNoPerm": "🚫 Kamu hanya bisa menghapus pesanmu sendiri (atau harus jadi admin grup).",
+    "byeOn": "✅ Pesan perpisahan AKTIF.",
+    "byeOff": "❌ Pesan perpisahan NONAKTIF."
   },
   "fun": {
     "ballUsage": "🎱 Tanyakan sesuatu! Cara pakai: *{cmd} <pertanyaan>*",
@@ -293,7 +300,16 @@
     "rrClick": "🔫 *klik* — ruang kosong. Kamu selamat… untuk sekarang."
   },
   "rpg": {
-    "roles": ["Pemula", "Pemula Lanjutan", "Pejuang", "Elit", "Ahli", "Grandmaster", "Legenda", "Mitik"],
+    "roles": [
+      "Pemula",
+      "Pemula Lanjutan",
+      "Pejuang",
+      "Elit",
+      "Ahli",
+      "Grandmaster",
+      "Legenda",
+      "Mitik"
+    ],
     "premiumYes": "ya ⭐",
     "premiumNo": "tidak",
     "profile": "👤 *{name}*\n\n🏷️ Level: *{level}* — {role}\n✨ XP: {exp} ({next} ke level berikutnya)\n{bar} {progress}%\n\n🎟️ Limit: {limit}\n⭐ Premium: {premium}\n💬 Pesan: {msgs}\n⚠️ Peringatan: {warnings}",

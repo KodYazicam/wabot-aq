@@ -128,7 +128,7 @@ test('every bundled command file loads without duplicate registrations', async (
   const groupCommands = [
     'tagall', 'hidetag', 'kick', 'add', 'promote', 'demote',
     'grouplink', 'revoke', 'groupinfo', 'poll', 'welcome', 'setwelcome',
-    'setbye', 'antilink', 'antidelete', 'detect', 'opengroup', 'closegroup',
+    'setbye', 'bye', 'antilink', 'antidelete', 'detect', 'opengroup', 'closegroup',
     'setsubject', 'setdesc', 'del'
   ]
   for (const name of groupCommands) {
@@ -158,4 +158,89 @@ test('menu shows localized category counts and the current locale', async () => 
   assert.match(text, new RegExp(`📋 ${commandCount} Befehle`))
   assert.match(text, /🌍 Sprache: de/)
   assert.match(text, new RegExp(`👥 \\*Gruppe\\* · ${groupCount}`))
+})
+
+test('menu filters by category and unknown categories list valid options', async () => {
+  initI18n({ locale: 'en' })
+  const registry = new CommandRegistry(COMMANDS_DIR, { logger: silent, hotReload: false })
+  await registry.loadAll()
+
+  const run = async (args) => {
+    const replies = []
+    await registry.find('menu').run({
+      registry,
+      config: { botName: 'wabot-aq' },
+      usedPrefix: '.',
+      locale: 'en',
+      args,
+      t: (key, params) => t('en', key, params),
+      reply: async (text) => replies.push(text)
+    })
+    return replies[0]
+  }
+
+  const groupOnly = await run(['group'])
+  assert.match(groupOnly, /👥 \*Group\*/)
+  assert.doesNotMatch(groupOnly, /Downloaders/)
+  assert.match(groupOnly, new RegExp(`📋 ${registry.byCategory().get('group').length} commands`))
+
+  const unknown = await run(['nope'])
+  assert.match(unknown, /Unknown category \*nope\*/)
+  assert.match(unknown, /\.menu group/)
+
+  const all = await run(['all'])
+  assert.match(all, /Downloaders/)
+  assert.match(all, /👥 \*Group\*/)
+})
+
+test('help searches names, aliases and descriptions', async () => {
+  initI18n({ locale: 'en' })
+  const registry = new CommandRegistry(COMMANDS_DIR, { logger: silent, hotReload: false })
+  await registry.loadAll()
+
+  const run = async (args) => {
+    const replies = []
+    await registry.find('help').run({
+      registry,
+      config: { limits: { commandCooldown: 3 } },
+      usedPrefix: '.',
+      locale: 'en',
+      args,
+      t: (key, params) => t('en', key, params),
+      reply: async (text) => replies.push(text)
+    })
+    return replies[0]
+  }
+
+  const search = await run(['download'])
+  assert.match(search, /matches for/)
+  assert.match(search, /yta|ytv|tiktok/)
+
+  const exact = await run(['kick'])
+  assert.match(exact, /\*kick\* — help/)
+  assert.doesNotMatch(exact, /matches for/)
+
+  const empty = await run(['zzzz'])
+  assert.match(empty, /No commands match/)
+})
+
+test('bye toggles goodbye messages', async () => {
+  initI18n({ locale: 'en' })
+  const registry = new CommandRegistry(COMMANDS_DIR, { logger: silent, hotReload: false })
+  await registry.loadAll()
+  const chat = { bye: false }
+  const replies = []
+  const ctx = {
+    chat,
+    t: (key, params) => t('en', key, params),
+    reply: async (text) => replies.push(text)
+  }
+
+  await registry.find('bye').run(ctx)
+  assert.equal(chat.bye, true)
+  assert.match(replies[0], /Goodbye messages ON/)
+
+  await registry.find('bye').run(ctx)
+  assert.equal(chat.bye, false)
+  assert.match(replies[1], /Goodbye messages OFF/)
 })

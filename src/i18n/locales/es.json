@@ -82,7 +82,12 @@
       "admin": "admin del grupo",
       "botAdmin": "bot es admin",
       "everyone": "todos"
-    }
+    },
+    "categoryNotFound": "❓ Categoría desconocida *{category}*.\n\nPrueba una de estas:\n{list}",
+    "searchHeader": "🔎 *{count} coincidencias para* `{query}`",
+    "searchMore": "…y {count} más. Afina la búsqueda.",
+    "searchEmpty": "❓ Ningún comando coincide con *{query}*. Prueba *{prefix}menu*.",
+    "searchTip": "💡 Detalles: *{prefix}help <comando>*"
   },
   "core": {
     "ping": "🏓 ¡Pong!\n⚡ Latencia: {ping}ms\n⏱️ Activo: {uptime}\n💾 RAM: {ram}",
@@ -245,7 +250,9 @@
     "setDesc": "✅ Descripción actualizada.",
     "pollUsage": "⌨️ Uso: *{prefix}poll <pregunta>|<opción 1>|<opción 2>…*\n\nEjemplo: *{prefix}poll ¿Noche de cine?|Viernes|Sábado*",
     "replyToMessage": "📎 Responde al mensaje que quieres eliminar.",
-    "delNoPerm": "🚫 Solo puedes borrar tus propios mensajes (o necesitas ser administrador)."
+    "delNoPerm": "🚫 Solo puedes borrar tus propios mensajes (o necesitas ser administrador).",
+    "byeOn": "✅ Mensajes de despedida ACTIVADOS.",
+    "byeOff": "❌ Mensajes de despedida DESACTIVADOS."
   },
   "fun": {
     "ballUsage": "🎱 ¡Pregúntame algo! Uso: *{cmd} <pregunta>*",
@@ -293,7 +300,16 @@
     "rrClick": "🔫 *clic* — recámara vacía. Vives… por ahora."
   },
   "rpg": {
-    "roles": ["Principiante", "Novato", "Guerrero", "Élite", "Maestro", "Gran Maestro", "Leyenda", "Mítico"],
+    "roles": [
+      "Principiante",
+      "Novato",
+      "Guerrero",
+      "Élite",
+      "Maestro",
+      "Gran Maestro",
+      "Leyenda",
+      "Mítico"
+    ],
     "premiumYes": "sí ⭐",
     "premiumNo": "no",
     "profile": "👤 *{name}*\n\n🏷️ Nivel: *{level}* — {role}\n✨ XP: {exp} ({next} para el siguiente nivel)\n{bar} {progress}%\n\n🎟️ Límite: {limit}\n⭐ Premium: {premium}\n💬 Mensajes: {msgs}\n⚠️ Avisos: {warnings}",
