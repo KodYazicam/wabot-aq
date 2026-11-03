@@ -33,6 +33,28 @@ test('old databases are normalized to the current schema version', async () => {
   assert.equal(raw.schemaVersion, SCHEMA_VERSION)
 })
 
+test('corrupt data recovers from the boot backup', async () => {
+  const file = tmpFile()
+  const db = new Database(file)
+  db.ensureUser('a@s.whatsapp.net', 'A')
+  await db.save()
+
+  // A successful boot refreshes database.json.backup.
+  const boot = new Database(file)
+  await boot.load()
+
+  fs.writeFileSync(file, '{not json')
+  const recovered = new Database(file)
+  await recovered.load()
+  assert.equal(recovered.data.users['a@s.whatsapp.net'].name, 'A')
+  assert.ok(fs.readdirSync(path.dirname(file)).some(name => name.includes('.corrupt.')))
+
+  // Recovery must repair the main file rather than leaving it corrupt.
+  await recovered.save()
+  const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
+  assert.equal(raw.users['a@s.whatsapp.net'].name, 'A')
+})
+
 test('backups rotate and info reports schema and backup counts', async () => {
   const db = new Database(tmpFile())
   db.ensureUser('a@s.whatsapp.net', 'A')

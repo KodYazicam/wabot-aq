@@ -93,9 +93,10 @@ export class Database {
     let needsWrite = false
     try {
       if (fs.existsSync(this.file)) {
-        // boot backup — cheap insurance against corruption
-        try { fs.copyFileSync(this.file, `${this.file}.backup`) } catch { /* ignore */ }
         const raw = JSON.parse(fs.readFileSync(this.file, 'utf8'))
+        // Only refresh the boot backup after the file parsed successfully.
+        // Copying first would overwrite a good backup with a corrupt payload.
+        try { fs.copyFileSync(this.file, `${this.file}.backup`) } catch { /* ignore */ }
         const wasCurrent = raw?.schemaVersion === SCHEMA_VERSION
         this.data = normalizeData(raw)
         this.migrate()
@@ -107,10 +108,10 @@ export class Database {
       try {
         if (fs.existsSync(`${this.file}.backup`)) {
           const raw = JSON.parse(fs.readFileSync(`${this.file}.backup`, 'utf8'))
-          const wasCurrent = raw?.schemaVersion === SCHEMA_VERSION
           this.data = normalizeData(raw)
           this.migrate()
-          this._lastSaved = wasCurrent ? JSON.stringify(this.data, null, 2) : null
+          // The main file is corrupt; force the next save to repair it.
+          this._lastSaved = null
           return this.data
         }
       } catch { /* fall through to fresh state */ }
