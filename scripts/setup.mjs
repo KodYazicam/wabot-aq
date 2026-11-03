@@ -71,8 +71,8 @@ print(`
 // ---------------------------------------------------------------------------
 
 // 0) environment checks -----------------------------------------------------
-const nodeOk = Number(process.versions.node.split('.')[0]) >= 18
-print(`✔ Node.js ${process.versions.node} ${nodeOk ? 'is supported' : '❌ TOO OLD — install Node ≥ 18 from https://nodejs.org'}`)
+const nodeOk = Number(process.versions.node.split('.')[0]) >= 22
+print(`✔ Node.js ${process.versions.node} ${nodeOk ? 'is supported' : '❌ TOO OLD — install Node ≥ 22 from https://nodejs.org'}`)
 if (!nodeOk) process.exit(1)
 
 let ffmpegOk = false

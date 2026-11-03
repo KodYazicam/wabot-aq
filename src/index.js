@@ -18,9 +18,9 @@ import { hasYtDlp } from './lib/youtube.js'
 // ---------------------------------------------------------------------------
 // Runtime guard: fail fast with a clear message on old Node versions
 // ---------------------------------------------------------------------------
-const [nodeMajor, nodeMinor] = process.versions.node.split('.').map(Number)
-if (nodeMajor < 18 || (nodeMajor === 18 && nodeMinor < 17)) {
-  console.error(`❌ Node.js ${process.versions.node} is too old. wabot-aq needs Node ≥ 18.17.`)
+const [nodeMajor] = process.versions.node.split('.').map(Number)
+if (nodeMajor < 22) {
+  console.error(`❌ Node.js ${process.versions.node} is too old. wabot-aq needs Node ≥ 22.`)
   console.error('   Install a current version: https://nodejs.org/en/download')
   process.exit(1)
 }
