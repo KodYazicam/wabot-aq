@@ -11,7 +11,7 @@ Thanks for taking the time to improve the bot. This guide covers local setup, th
 
 ## Requirements
 
-- **Node.js 20 or 22** (the versions CI tests; the runtime guard accepts 18.17+)
+- **Node.js 22 or 24** (the versions CI tests; the runtime guard requires 22+)
 - **git**
 - **ffmpeg** for stickers and media commands
 - Optional: `yt-dlp` for the YouTube fallback

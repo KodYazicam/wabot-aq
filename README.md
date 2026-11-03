@@ -7,7 +7,7 @@
 [![CI](https://github.com/KodYazicam/wabot-aq/actions/workflows/node.js.yml/badge.svg)](https://github.com/KodYazicam/wabot-aq/actions/workflows/node.js.yml)
 [![Release](https://img.shields.io/github/release/KodYazicam/wabot-aq.svg)](https://github.com/KodYazicam/wabot-aq/releases)
 [![License](https://img.shields.io/github/license/KodYazicam/wabot-aq.svg)](LICENSE)
-[![Node](https://img.shields.io/badge/node-%E2%89%A518.17-green.svg)](package.json)
+[![Node](https://img.shields.io/badge/node-%E2%89%A522-green.svg)](package.json)
 
 🌍 en · tr · id · es &nbsp;|&nbsp; ⚡ 64 commands & 70+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
 
@@ -60,7 +60,7 @@ This is a ground-up rewrite of the classic [Nurutomo/wabot-aq](https://github.co
 
 ## Requirements
 
-- **Node.js ≥ 18.17** — [download](https://nodejs.org/en/download) (LTS version recommended)
+- **Node.js ≥ 22** — [download](https://nodejs.org/en/download) (Node 24 LTS recommended)
 - **ffmpeg** — free media tool used for stickers and conversions
 - **A WhatsApp account** — the bot links to it as a "linked device" (your phone stays usable)
 
