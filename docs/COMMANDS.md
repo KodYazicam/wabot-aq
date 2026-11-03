@@ -1,6 +1,6 @@
 # Command reference
 
-> Auto-generated from the command registry (`npm run docs`) — 87 commands, generated locale: `en` (en, es, id, tr).
+> Auto-generated from the command registry (`npm run docs`) — 87 commands, generated locale: `en` (de, en, es, fr, id, tr).
 
 The prefix is configurable (`PREFIX` in .env, default `.`).
 

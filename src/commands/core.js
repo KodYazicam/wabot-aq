@@ -7,6 +7,21 @@ import { msToTime, fmtBytes } from '../lib/utils.js'
 
 const CATEGORY_ORDER = ['core', 'settings', 'sticker', 'media', 'downloader', 'ai', 'tools', 'group', 'fun', 'rpg', 'owner', 'other']
 
+const CATEGORY_ICONS = {
+  core: '🏠',
+  settings: '⚙️',
+  sticker: '🧩',
+  media: '🎞️',
+  downloader: '⬇️',
+  ai: '🤖',
+  tools: '🛠️',
+  group: '👥',
+  fun: '🎮',
+  rpg: '🏅',
+  owner: '👑',
+  other: '📦'
+}
+
 export const commands = [
   {
     name: 'menu',
@@ -16,13 +31,15 @@ export const commands = [
     async run (ctx) {
       const { registry, config } = ctx
       const cats = registry.byCategory()
+      const commandCount = new Set(registry.commands.values()).size
       const lines = []
       lines.push(ctx.t('menu.header', {
         bot: config.botName,
         prefix: ctx.usedPrefix,
-        count: [...new Set(registry.commands.values())].length
+        count: commandCount
       }))
       lines.push(ctx.t('menu.uptime', { uptime: msToTime(process.uptime() * 1000) }))
+      lines.push(ctx.t('menu.locale', { locale: ctx.locale }))
       lines.push(ctx.t('menu.tip', { prefix: ctx.usedPrefix, cmd: 'help' }))
       lines.push('')
 
@@ -31,7 +48,8 @@ export const commands = [
         return i < 0 ? CATEGORY_ORDER.length : i
       }
       for (const [cat, defs] of [...cats.entries()].sort((a, b) => catRank(a[0]) - catRank(b[0]))) {
-        lines.push(`┌─⭑ *${ctx.t(`menu.cat.${cat}`)}*`)
+        const icon = CATEGORY_ICONS[cat] || CATEGORY_ICONS.other
+        lines.push(`┌─ ${icon} *${ctx.t(`menu.cat.${cat}`)}* · ${defs.length}`)
         for (const def of defs) {
           const usage = def.usage ? ' ' + def.usage : ''
           lines.push(`│ • *${ctx.usedPrefix}${def.name}*${usage}`)

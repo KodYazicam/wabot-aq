@@ -6,6 +6,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { CommandRegistry } from '../src/core/commands.js'
+import { initI18n, t } from '../src/i18n/index.js'
 
 const COMMANDS_DIR = fileURLToPath(new URL('../src/commands', import.meta.url))
 const silent = { info () {}, warn () {}, error () {} }
@@ -134,4 +135,27 @@ test('every bundled command file loads without duplicate registrations', async (
     assert.ok(registry.find(name), `missing group command: ${name}`)
   }
   assert.ok(registry.byCategory().get('group')?.length >= groupCommands.length)
+})
+
+test('menu shows localized category counts and the current locale', async () => {
+  initI18n({ locale: 'de' })
+  const registry = new CommandRegistry(COMMANDS_DIR, { logger: silent, hotReload: false })
+  await registry.loadAll()
+
+  const replies = []
+  await registry.find('menu').run({
+    registry,
+    config: { botName: 'wabot-aq' },
+    usedPrefix: '.',
+    locale: 'de',
+    t: (key, params) => t('de', key, params),
+    reply: async (text) => replies.push(text)
+  })
+
+  const text = replies[0]
+  const commandCount = new Set(registry.commands.values()).size
+  const groupCount = registry.byCategory().get('group').length
+  assert.match(text, new RegExp(`📋 ${commandCount} Befehle`))
+  assert.match(text, /🌍 Sprache: de/)
+  assert.match(text, new RegExp(`👥 \\*Gruppe\\* · ${groupCount}`))
 })

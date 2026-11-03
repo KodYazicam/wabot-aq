@@ -47,6 +47,7 @@
   "menu": {
     "header": "🤖 *{bot}* — Command Menu\n📋 {count} commands · prefix: {prefix}",
     "uptime": "⏱️ Uptime: {uptime}",
+    "locale": "🌍 Language: {locale}",
     "tip": "💡 Details for a command: {prefix}{cmd} <command>",
     "footer": "🔗 {bot} · powered by wabot-aq",
     "cat": {
