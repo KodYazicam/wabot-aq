@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/KodYazicam/wabot-aq.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-green.svg)](package.json)
 
-🌍 en · tr · id · es &nbsp;|&nbsp; ⚡ 64 commands & 70+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
+🌍 en · tr · id · es &nbsp;|&nbsp; ⚡ 85 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
 
 </div>
 
@@ -211,7 +211,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 
 ## All commands
 
-64 commands with 70+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
+85 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
 
 | Category | Commands |
 |---|---|
@@ -275,7 +275,7 @@ A full annotated template is in [`src/commands/_example.js`](src/commands/_examp
 
 ```
 ┌────────────┐   messages    ┌─────────────┐   commands    ┌──────────────┐
-│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  64 commands │
+│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  85 commands │
 │ (multi-dev)│    QR pair    │  (socket)   │  hot-reload   │  src/commands│
 └────────────┘               └─────────────┘               └──────────────┘
                                   │                              │

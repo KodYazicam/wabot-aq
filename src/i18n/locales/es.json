@@ -213,6 +213,7 @@
     "demoted": "📉 {users} ya no es administrador.",
     "addUsage": "⌨️ Uso: *{cmd} <número>* (con código de país)",
     "added": "✅ {user} fue añadido al grupo.",
+    "alreadyIn": "ℹ️ {user} ya está en este grupo.",
     "inviteDM": "👤 Te invitaron al grupo *{group}*.\nÚnete con este enlace:\nhttps://chat.whatsapp.com/{code}",
     "addFailed": "⚠️ No se pudo añadir a {user} (privacidad). Le envié el enlace de invitación por privado.",
     "link": "🔗 Enlace de invitación del grupo:\n{url}",

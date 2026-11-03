@@ -213,6 +213,7 @@
     "demoted": "📉 {users} artık admin değil.",
     "addUsage": "⌨️ Kullanım: *{cmd} <numara>* (ülke koduyla)",
     "added": "✅ {user} gruba eklendi.",
+    "alreadyIn": "ℹ️ {user} zaten bu grupta.",
     "inviteDM": "👤 *{group}* grubuna davet edildin.\nBu linkle katıl:\nhttps://chat.whatsapp.com/{code}",
     "addFailed": "⚠️ {user} eklenemedi (gizlilik ayarları). Davet linkini özel mesajla gönderdim.",
     "link": "🔗 Grup davet linki:\n{url}",

@@ -1,6 +1,6 @@
 # Command reference
 
-> Auto-generated from the command registry (`npm run docs`) — 64 commands, generated locale: `en` (en, es, id, tr).
+> Auto-generated from the command registry (`npm run docs`) — 85 commands, generated locale: `en` (en, es, id, tr).
 
 The prefix is configurable (`PREFIX` in .env, default `.`).
 
@@ -55,6 +55,32 @@ The prefix is configurable (`PREFIX` in .env, default `.`).
 | `.russianroulette` | `.rr` | — | Russian roulette (1 in 6 chance of "losing") | everyone | 5s |
 | `.flip` | — | — | Flip a coin | everyone | 3s |
 | `.dice` | — | — | Roll a dice | everyone | 3s |
+
+## Group (`group`)
+
+| Command | Aliases | Usage | Description | Access | Cooldown |
+|---|---|---|---|---|---|
+| `.tagall` | `.everyone`, `.all` | `[message]` | Mention every member of the group | group only + group admin | 10s |
+| `.hidetag` | — | `[message]` | Notify everyone without showing their names | group only + group admin | 10s |
+| `.kick` | `.remove` | `<@user|number>` | Remove a member from the group | group only + group admin + bot is admin | 5s |
+| `.add` | — | `<number>` | Add a user to the group | group only + group admin + bot is admin | 5s |
+| `.promote` | — | `<@user|number>` | Promote a member to group admin | group only + group admin + bot is admin | 5s |
+| `.demote` | — | `<@user|number>` | Remove a member from group admins | group only + group admin + bot is admin | 5s |
+| `.grouplink` | `.link` | — | Show the group invite link | group only + group admin + bot is admin | 5s |
+| `.revoke` | — | — | Revoke the group invite link and create a new one | group only + group admin + bot is admin | 5s |
+| `.groupinfo` | `.ginfo` | — | Show group details | group only | 5s |
+| `.poll` | — | `<question>|<option 1>|<option 2>` | Create a group poll | group only | 10s |
+| `.welcome` | — | — | Toggle welcome messages for new members | group only + group admin | 3s |
+| `.setwelcome` | — | `<text>` | Set the welcome message text | group only + group admin | 3s |
+| `.setbye` | — | `<text>` | Set the goodbye message text | group only + group admin | 3s |
+| `.antilink` | — | — | Delete WhatsApp group invite links posted by members | group only + group admin | 3s |
+| `.antidelete` | — | — | Recover deleted messages in this group | group only + group admin | 3s |
+| `.detect` | — | — | Announce admin and group setting changes | group only + group admin | 3s |
+| `.opengroup` | `.open` | — | Allow every member to send messages | group only + group admin + bot is admin | 3s |
+| `.closegroup` | `.close` | — | Restrict messages to group admins | group only + group admin + bot is admin | 3s |
+| `.setsubject` | — | `<text>` | Change the group name | group only + group admin + bot is admin | 3s |
+| `.setdesc` | — | `<text>` | Change the group description | group only + group admin + bot is admin | 3s |
+| `.del` | `.delete` | — | Delete a replied-to message | group only | 3s |
 
 ## Settings (`settings`)
 
