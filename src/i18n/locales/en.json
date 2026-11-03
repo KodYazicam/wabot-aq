@@ -329,7 +329,19 @@
     "lbLine": "{rank}. {name} — level {level} ({exp} XP)",
     "lbFooter": "Earn XP by using commands!",
     "afkSet": "💤 You are now AFK.\n📝 Reason: {reason}",
-    "afkNoReason": "not specified"
+    "afkNoReason": "not specified",
+    "weeklyWait": "⏳ You already claimed this week's reward.\nCome back in {when}.",
+    "weeklyClaimed": "🗓️ Weekly reward claimed: +{amount}!\n🎟️ Your limit: {limit}",
+    "transferUsage": "⌨️ Usage: *{prefix}transfer @user <amount>*\nExample: *{prefix}transfer @friend 50*",
+    "transferInvalid": "❓ Enter an amount between 1 and {max}.",
+    "transferSelf": "😅 You can't transfer limits to yourself or the bot.",
+    "transferInsufficient": "🎟️ You only have {limit} limit(s).",
+    "transferred": "✅ Sent *{amount}* limit(s) to {user}.\n🎟️ Your limit: {limit}",
+    "slotsInvalid": "🎰 Enter a bet between 1 and {max}.",
+    "slotsNoLimit": "🎟️ You need at least {bet} limit(s) to play (you have {limit}).",
+    "slotsWin": "🎰 {reels}\n\n💎 Triple! You won *{payout}* limit(s) (net +{net}).\n🎟️ Your limit: {limit}",
+    "slotsPush": "🎰 {reels}\n\n✨ Two of a kind — your bet is returned.\n🎟️ Your limit: {limit}",
+    "slotsLose": "🎰 {reels}\n\n💨 No match. You lost *{bet}* limit(s).\n🎟️ Your limit: {limit}"
   },
   "owner": {
     "noTarget": "❓ Mention a user, reply to their message or provide a number.",

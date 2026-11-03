@@ -329,7 +329,19 @@
     "lbLine": "{rank}. {name} — {level}. seviye ({exp} XP)",
     "lbFooter": "Komutları kullanarak XP kazan!",
     "afkSet": "💤 Artık AFK'sın.\n📝 Sebep: {reason}",
-    "afkNoReason": "belirtilmedi"
+    "afkNoReason": "belirtilmedi",
+    "weeklyWait": "⏳ Bu haftanın ödülünü zaten aldın.\n{when} sonra tekrar gel.",
+    "weeklyClaimed": "🗓️ Haftalık ödül alındı: +{amount}!\n🎟️ Limitin: {limit}",
+    "transferUsage": "⌨️ Kullanım: *{prefix}transfer @kullanıcı <miktar>*\nÖrnek: *{prefix}transfer @arkadaş 50*",
+    "transferInvalid": "❓ 1 ile {max} arasında bir miktar gir.",
+    "transferSelf": "😅 Limitlerini kendine veya bota transfer edemezsin.",
+    "transferInsufficient": "🎟️ Sadece {limit} limitin var.",
+    "transferred": "✅ {user} kullanıcısına *{amount}* limit gönderdin.\n🎟️ Limitin: {limit}",
+    "slotsInvalid": "🎰 1 ile {max} arasında bir bahis gir.",
+    "slotsNoLimit": "🎟️ Oynamak için en az {bet} limite ihtiyacın var ({limit} limitin var).",
+    "slotsWin": "🎰 {reels}\n\n💎 Üçlü! *{payout}* limit kazandın (net +{net}).\n🎟️ Limitin: {limit}",
+    "slotsPush": "🎰 {reels}\n\n✨ İki eşleşme — bahsin geri verildi.\n🎟️ Limitin: {limit}",
+    "slotsLose": "🎰 {reels}\n\n💨 Eşleşme yok. *{bet}* limit kaybettin.\n🎟️ Limitin: {limit}"
   },
   "owner": {
     "noTarget": "❓ Bir kullanıcıyı etiketle, mesajına yanıt ver ya da numara ver.",

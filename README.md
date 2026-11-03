@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/KodYazicam/wabot-aq.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-green.svg)](package.json)
 
-🌍 en · tr · id · es · de · fr &nbsp;|&nbsp; ⚡ 95 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
+🌍 en · tr · id · es · de · fr &nbsp;|&nbsp; ⚡ 98 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
 
 </div>
 
@@ -54,7 +54,7 @@ This is a ground-up rewrite of the classic [Nurutomo/wabot-aq](https://github.co
 | 🎬 **Downloads** | YouTube audio/video (3 fallback engines so it keeps working), TikTok without watermark |
 | 🔧 **Tools** | text-to-speech, translation, weather, Wikipedia, QR codes, calculator, password generator, URL shortener, persistent reminders |
 | 👥 **Groups** | welcome/bye messages, group warnings, anti-link, anti-delete, tag-everyone, polls, kick/promote/demote, open/close |
-| 🕹 **Fun & RPG** | 8-ball, jokes, quotes, match-making, levels & XP, daily rewards, leaderboards, AFK |
+| 🕹 **Fun & RPG** | 8-ball, jokes, quotes, match-making, levels & XP, daily/weekly rewards, limit transfers, slots, leaderboards, AFK |
 | 🛡 **Safety** | owner/moderator/premium permission levels, cooldowns, flood protection, warnings, bans |
 | 🌍 **Languages** | English, Türkçe, Bahasa Indonesia, Español, Deutsch, Français — per user, per group, or global |
 
@@ -195,6 +195,8 @@ A few favorites:
 .translate en cómo estás
 .tagall party tonight 🎉              (in groups, admins)
 .profile        → your XP card
+.weekly         → weekly limit reward
+.slots 10       → bet 10 limits on a spin
 ```
 
 Full reference with aliases, permissions and cooldowns: **[docs/COMMANDS.md](docs/COMMANDS.md)**.
@@ -211,7 +213,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 
 ## All commands
 
-95 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
+98 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
 
 | Category | Commands |
 |---|---|
@@ -224,7 +226,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 | Tools | `tts` `translate` `weather` `wiki` `qr` `calc` `base64` `shorturl` `pass` `readmore` `dice` `flip` `remind` `reminders` `delremind` |
 | Groups | `tagall` `hidetag` `kick` `add` `promote` `demote` `grouplink` `revoke` `groupinfo` `poll` `welcome` `setwelcome` `setbye` `bye` `gwarn` `warnings` `resetwarn` `antilink` `antidelete` `detect` `opengroup` `closegroup` `setsubject` `setdesc` `del` |
 | Fun | `8ball` `pick` `rate` `match` `joke` `quote` `russianroulette` |
-| Profile & RPG | `profile` `level` `daily` `leaderboard` `afk` |
+| Profile & RPG | `profile` `level` `daily` `weekly` `transfer` `slots` `leaderboard` `afk` |
 | Owner | `banuser` `unbanuser` `banchat` `unbanchat` `addprem` `delprem` `broadcast` `bcgroup` `exec` `join` `leave` `warn` `dbbackup` `dbstats` |
 
 ## Writing your own command (step by step)
@@ -288,7 +290,7 @@ Plugins are trusted local code — there is no sandbox. In Docker, `docker-compo
 
 ```
 ┌────────────┐   messages    ┌─────────────┐   commands    ┌──────────────┐
-│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  95 commands │
+│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  98 commands │
 │ (multi-dev)│    QR pair    │  (socket)   │  hot-reload   │  src/commands│
 └────────────┘               └─────────────┘               └──────────────┘
                                   │                              │

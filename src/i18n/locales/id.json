@@ -329,7 +329,19 @@
     "lbLine": "{rank}. {name} — level {level} ({exp} XP)",
     "lbFooter": "Dapatkan XP dengan memakai perintah!",
     "afkSet": "💤 Kamu sekarang AFK.\n📝 Alasan: {reason}",
-    "afkNoReason": "tidak disebutkan"
+    "afkNoReason": "tidak disebutkan",
+    "weeklyWait": "⏳ Kamu sudah klaim hadiah minggu ini.\nKembali dalam {when}.",
+    "weeklyClaimed": "🗓️ Hadiah mingguan diklaim: +{amount}!\n🎟️ Limit kamu: {limit}",
+    "transferUsage": "⌨️ Penggunaan: *{prefix}transfer @pengguna <jumlah>*\nContoh: *{prefix}transfer @teman 50*",
+    "transferInvalid": "❓ Masukkan jumlah antara 1 dan {max}.",
+    "transferSelf": "😅 Kamu tidak bisa mentransfer limit ke diri sendiri atau bot.",
+    "transferInsufficient": "🎟️ Kamu hanya punya {limit} limit.",
+    "transferred": "✅ Mengirim *{amount}* limit ke {user}.\n🎟️ Limit kamu: {limit}",
+    "slotsInvalid": "🎰 Masukkan taruhan antara 1 dan {max}.",
+    "slotsNoLimit": "🎟️ Kamu butuh minimal {bet} limit untuk bermain (kamu punya {limit}).",
+    "slotsWin": "🎰 {reels}\n\n💎 Tiga sama! Kamu menang *{payout}* limit (net +{net}).\n🎟️ Limit kamu: {limit}",
+    "slotsPush": "🎰 {reels}\n\n✨ Dua sama — taruhanmu dikembalikan.\n🎟️ Limit kamu: {limit}",
+    "slotsLose": "🎰 {reels}\n\n💨 Tidak cocok. Kamu kehilangan *{bet}* limit.\n🎟️ Limit kamu: {limit}"
   },
   "owner": {
     "noTarget": "❓ Tag pengguna, balas pesannya atau tulis nomornya.",
