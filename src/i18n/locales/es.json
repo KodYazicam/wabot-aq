@@ -252,7 +252,15 @@
     "replyToMessage": "📎 Responde al mensaje que quieres eliminar.",
     "delNoPerm": "🚫 Solo puedes borrar tus propios mensajes (o necesitas ser administrador).",
     "byeOn": "✅ Mensajes de despedida ACTIVADOS.",
-    "byeOff": "❌ Mensajes de despedida DESACTIVADOS."
+    "byeOff": "❌ Mensajes de despedida DESACTIVADOS.",
+    "gwarned": "⚠️ {user} ahora tiene {count}/3 advertencias.",
+    "gwarnKicked": "👢 {user} alcanzó 3 advertencias y fue expulsado.",
+    "gwarnLimitNoBot": "⚠️ {user} alcanzó 3 advertencias, pero necesito ser administrador del grupo para expulsarlo.",
+    "warningsNone": "✅ {user} no tiene advertencias.",
+    "warningsInfo": "⚠️ {user} tiene {count}/3 advertencias.\n📝 Motivos: {reasons}",
+    "noReason": "sin motivo registrado",
+    "warningsReset": "✅ Advertencias borradas para {users}.",
+    "cantWarnSelf": "😅 No puedes advertirte a ti mismo ni al bot."
   },
   "fun": {
     "ballUsage": "🎱 ¡Pregúntame algo! Uso: *{cmd} <pregunta>*",

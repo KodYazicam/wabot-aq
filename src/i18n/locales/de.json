@@ -252,7 +252,15 @@
     "replyToMessage": "📎 Antworte auf die Nachricht, die du löschen möchtest.",
     "delNoPerm": "🚫 Du kannst nur deine eigenen Nachrichten löschen (oder musst Gruppen-Admin sein).",
     "byeOn": "✅ Abschiedsnachrichten AN.",
-    "byeOff": "❌ Abschiedsnachrichten AUS."
+    "byeOff": "❌ Abschiedsnachrichten AUS.",
+    "gwarned": "⚠️ {user} hat jetzt {count}/3 Verwarnungen.",
+    "gwarnKicked": "👢 {user} hat 3 Verwarnungen erreicht und wurde entfernt.",
+    "gwarnLimitNoBot": "⚠️ {user} hat 3 Verwarnungen erreicht, aber ich muss Gruppenadmin sein, um ihn zu entfernen.",
+    "warningsNone": "✅ {user} hat keine Verwarnungen.",
+    "warningsInfo": "⚠️ {user} hat {count}/3 Verwarnungen.\n📝 Gründe: {reasons}",
+    "noReason": "kein Grund gespeichert",
+    "warningsReset": "✅ Verwarnungen für {users} gelöscht.",
+    "cantWarnSelf": "😅 Du kannst dich oder den Bot nicht verwarnen."
   },
   "fun": {
     "ballUsage": "🎱 Frag mich etwas! Nutzung: *{cmd} <Frage>*",

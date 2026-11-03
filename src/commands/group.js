@@ -29,6 +29,26 @@ function renderTargets (targets) {
   return targets.map(mention).join(', ')
 }
 
+function warningEntry (chat, jid) {
+  if (!chat.warnings || typeof chat.warnings !== 'object' || Array.isArray(chat.warnings)) {
+    chat.warnings = {}
+  }
+  const entry = chat.warnings[jid]
+  if (!entry || typeof entry !== 'object') {
+    chat.warnings[jid] = { count: 0, reasons: [] }
+  }
+  if (!Array.isArray(chat.warnings[jid].reasons)) chat.warnings[jid].reasons = []
+  return chat.warnings[jid]
+}
+
+function warningReason (ctx) {
+  const first = ctx.args?.[0] || ''
+  const numericTarget = !ctx.m.mentionedJid?.length && !ctx.m.quoted &&
+    first.replace(/\D/g, '').length >= 7
+  const parts = numericTarget ? ctx.args.slice(1) : ctx.args || []
+  return parts.join(' ').replace(/@\d+/g, '').replace(/\s+/g, ' ').trim()
+}
+
 function groupInviteUrl (code) {
   return `https://chat.whatsapp.com/${code}`
 }
@@ -274,6 +294,93 @@ export const commands = [
     async run (ctx) {
       ctx.chat.bye = !ctx.chat.bye
       await ctx.reply(ctx.t(ctx.chat.bye ? 'group.byeOn' : 'group.byeOff'))
+    }
+  },
+  {
+    name: 'gwarn',
+    aliases: ['groupwarn'],
+    category: 'group',
+    description: 'Warn a member; 3 warnings remove them when the bot is admin',
+    usage: '<@user|number> [reason]',
+    permission: ['group', 'admin'],
+    cooldown: 3,
+    async run (ctx) {
+      const targets = resolveTargets(ctx).filter(jid =>
+        !sameUser(jid, ctx.sender) && !sameUser(jid, ctx.sock.user?.id)
+      )
+      if (!targets.length) return ctx.reply(ctx.t('group.cantWarnSelf'))
+
+      const reason = warningReason(ctx)
+      const { botAdmin } = await ctx.getAdminStatus()
+      const lines = []
+
+      for (const jid of targets) {
+        const entry = warningEntry(ctx.chat, jid)
+        entry.count = Math.min(3, (entry.count || 0) + 1)
+        if (reason) entry.reasons.push(reason)
+
+        if (entry.count < 3) {
+          lines.push(ctx.t('group.gwarned', { user: mention(jid), count: entry.count }))
+          continue
+        }
+
+        if (!botAdmin) {
+          lines.push(ctx.t('group.gwarnLimitNoBot', { user: mention(jid) }))
+          continue
+        }
+
+        try {
+          await ctx.sock.groupParticipantsUpdate(ctx.m.chat, [jid], 'remove')
+          delete ctx.chat.warnings[jid]
+          lines.push(ctx.t('group.gwarnKicked', { user: mention(jid) }))
+        } catch {
+          lines.push(ctx.t('group.gwarnLimitNoBot', { user: mention(jid) }))
+        }
+      }
+
+      await ctx.reply(lines.join('\n'), { mentions: targets })
+    }
+  },
+  {
+    name: 'warnings',
+    aliases: ['warns'],
+    category: 'group',
+    description: 'Show group warnings for yourself or a member',
+    usage: '[@user|number]',
+    permission: 'group',
+    cooldown: 3,
+    async run (ctx) {
+      const targets = resolveTargets(ctx)
+      const jid = targets[0] || ctx.sender
+      const entry = ctx.chat.warnings?.[jid]
+      if (!entry?.count) {
+        return ctx.reply(ctx.t('group.warningsNone', { user: mention(jid) }), { mentions: [jid] })
+      }
+      const reasons = entry.reasons?.length
+        ? entry.reasons.join('; ')
+        : ctx.t('group.noReason')
+      await ctx.reply(ctx.t('group.warningsInfo', {
+        user: mention(jid),
+        count: Math.min(3, entry.count),
+        reasons
+      }), { mentions: [jid] })
+    }
+  },
+  {
+    name: 'resetwarn',
+    aliases: ['clearwarn'],
+    category: 'group',
+    description: 'Clear group warnings for a member',
+    usage: '<@user|number>',
+    permission: ['group', 'admin'],
+    cooldown: 3,
+    async run (ctx) {
+      const targets = resolveTargets(ctx)
+      if (!targets.length) return ctx.reply(ctx.t('group.noTarget'))
+      for (const jid of targets) {
+        if (ctx.chat.warnings) delete ctx.chat.warnings[jid]
+      }
+      await ctx.reply(ctx.t('group.warningsReset', { users: renderTargets(targets) }), { mentions: targets })
     }
   },
   {

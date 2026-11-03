@@ -252,7 +252,15 @@
     "replyToMessage": "📎 Silmek istediğin mesaja yanıt ver.",
     "delNoPerm": "🚫 Yalnızca kendi mesajlarını silebilirsin (ya da grup admini olman gerekir).",
     "byeOn": "✅ Gruptan ayrılma mesajları AÇIK.",
-    "byeOff": "❌ Gruptan ayrılma mesajları KAPALI."
+    "byeOff": "❌ Gruptan ayrılma mesajları KAPALI.",
+    "gwarned": "⚠️ {user} artık {count}/3 uyarıya sahip.",
+    "gwarnKicked": "👢 {user} 3 uyarıya ulaştı ve gruptan atıldı.",
+    "gwarnLimitNoBot": "⚠️ {user} 3 uyarıya ulaştı ama atabilmem için grup admini olmam gerek.",
+    "warningsNone": "✅ {user} için uyarı yok.",
+    "warningsInfo": "⚠️ {user} {count}/3 uyarıya sahip.\n📝 Sebepler: {reasons}",
+    "noReason": "sebep kaydedilmedi",
+    "warningsReset": "✅ {users} için uyarılar silindi.",
+    "cantWarnSelf": "😅 Kendini veya botu uyaramazsın."
   },
   "fun": {
     "ballUsage": "🎱 Bana bir şey sor! Kullanım: *{cmd} <soru>*",

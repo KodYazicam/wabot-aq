@@ -252,7 +252,15 @@
     "replyToMessage": "📎 Balas pesan yang ingin kamu hapus.",
     "delNoPerm": "🚫 Kamu hanya bisa menghapus pesanmu sendiri (atau harus jadi admin grup).",
     "byeOn": "✅ Pesan perpisahan AKTIF.",
-    "byeOff": "❌ Pesan perpisahan NONAKTIF."
+    "byeOff": "❌ Pesan perpisahan NONAKTIF.",
+    "gwarned": "⚠️ {user} sekarang memiliki {count}/3 peringatan.",
+    "gwarnKicked": "👢 {user} mencapai 3 peringatan dan dikeluarkan.",
+    "gwarnLimitNoBot": "⚠️ {user} mencapai 3 peringatan, tapi aku harus menjadi admin grup untuk mengeluarkannya.",
+    "warningsNone": "✅ {user} tidak memiliki peringatan.",
+    "warningsInfo": "⚠️ {user} memiliki {count}/3 peringatan.\n📝 Alasan: {reasons}",
+    "noReason": "tidak ada alasan tercatat",
+    "warningsReset": "✅ Peringatan dihapus untuk {users}.",
+    "cantWarnSelf": "😅 Kamu tidak bisa memperingatkan diri sendiri atau bot."
   },
   "fun": {
     "ballUsage": "🎱 Tanyakan sesuatu! Cara pakai: *{cmd} <pertanyaan>*",

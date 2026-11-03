@@ -34,7 +34,8 @@ const CHAT_DEFAULTS = () => ({
   locale: '',
   antilink: false,
   antidelete: false,
-  useDocument: false
+  useDocument: false,
+  warnings: {}
 })
 
 const SETTINGS_DEFAULTS = () => ({
@@ -184,6 +185,9 @@ export class Database {
     const chat = chats[jid]
     for (const [k, v] of Object.entries(CHAT_DEFAULTS())) {
       if (chat[k] === undefined) chat[k] = v
+    }
+    if (!chat.warnings || typeof chat.warnings !== 'object' || Array.isArray(chat.warnings)) {
+      chat.warnings = {}
     }
     return chat
   }

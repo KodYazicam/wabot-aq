@@ -252,7 +252,15 @@
     "replyToMessage": "📎 Reply to the message you want to delete.",
     "delNoPerm": "🚫 You can only delete your own messages (or you need to be a group admin).",
     "byeOn": "✅ Goodbye messages ON.",
-    "byeOff": "❌ Goodbye messages OFF."
+    "byeOff": "❌ Goodbye messages OFF.",
+    "gwarned": "⚠️ {user} now has {count}/3 warnings.",
+    "gwarnKicked": "👢 {user} reached 3 warnings and was removed.",
+    "gwarnLimitNoBot": "⚠️ {user} reached 3 warnings, but I need to be a group admin to remove them.",
+    "warningsNone": "✅ {user} has no warnings.",
+    "warningsInfo": "⚠️ {user} has {count}/3 warnings.\n📝 Reasons: {reasons}",
+    "noReason": "no reason recorded",
+    "warningsReset": "✅ Warnings cleared for {users}.",
+    "cantWarnSelf": "😅 You can't warn yourself or the bot."
   },
   "fun": {
     "ballUsage": "🎱 Ask me something! Usage: *{cmd} <question>*",
