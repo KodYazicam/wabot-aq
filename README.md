@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/KodYazicam/wabot-aq.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-green.svg)](package.json)
 
-🌍 en · tr · id · es · de · fr &nbsp;|&nbsp; ⚡ 88 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
+🌍 en · tr · id · es · de · fr &nbsp;|&nbsp; ⚡ 91 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
 
 </div>
 
@@ -211,7 +211,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 
 ## All commands
 
-88 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
+91 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
 
 | Category | Commands |
 |---|---|
@@ -222,7 +222,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 | Downloads | `yts` `play` `yta` `ytv` `tiktok` |
 | AI | `ai` `resetai` |
 | Tools | `tts` `translate` `weather` `wiki` `qr` `calc` `base64` `shorturl` `pass` `readmore` `dice` `flip` |
-| Groups | `tagall` `hidetag` `kick` `add` `promote` `demote` `grouplink` `revoke` `groupinfo` `poll` `welcome` `setwelcome` `setbye` `bye` `antilink` `antidelete` `detect` `opengroup` `closegroup` `setsubject` `setdesc` `del` |
+| Groups | `tagall` `hidetag` `kick` `add` `promote` `demote` `grouplink` `revoke` `groupinfo` `poll` `welcome` `setwelcome` `setbye` `bye` `gwarn` `warnings` `resetwarn` `antilink` `antidelete` `detect` `opengroup` `closegroup` `setsubject` `setdesc` `del` |
 | Fun | `8ball` `pick` `rate` `match` `joke` `quote` `russianroulette` |
 | Profile & RPG | `profile` `level` `daily` `leaderboard` `afk` |
 | Owner | `banuser` `unbanuser` `banchat` `unbanchat` `addprem` `delprem` `broadcast` `bcgroup` `exec` `join` `leave` `warn` `dbstats` |
@@ -288,7 +288,7 @@ Plugins are trusted local code — there is no sandbox. In Docker, `docker-compo
 
 ```
 ┌────────────┐   messages    ┌─────────────┐   commands    ┌──────────────┐
-│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  88 commands │
+│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  91 commands │
 │ (multi-dev)│    QR pair    │  (socket)   │  hot-reload   │  src/commands│
 └────────────┘               └─────────────┘               └──────────────┘
                                   │                              │

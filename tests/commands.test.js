@@ -128,8 +128,8 @@ test('every bundled command file loads without duplicate registrations', async (
   const groupCommands = [
     'tagall', 'hidetag', 'kick', 'add', 'promote', 'demote',
     'grouplink', 'revoke', 'groupinfo', 'poll', 'welcome', 'setwelcome',
-    'setbye', 'bye', 'antilink', 'antidelete', 'detect', 'opengroup', 'closegroup',
-    'setsubject', 'setdesc', 'del'
+    'setbye', 'bye', 'gwarn', 'warnings', 'resetwarn', 'antilink', 'antidelete',
+    'detect', 'opengroup', 'closegroup', 'setsubject', 'setdesc', 'del'
   ]
   for (const name of groupCommands) {
     assert.ok(registry.find(name), `missing group command: ${name}`)
@@ -222,6 +222,64 @@ test('help searches names, aliases and descriptions', async () => {
 
   const empty = await run(['zzzz'])
   assert.match(empty, /No commands match/)
+})
+
+test('group warnings are per chat and kick at three when the bot is admin', async () => {
+  initI18n({ locale: 'en' })
+  const registry = new CommandRegistry(COMMANDS_DIR, { logger: silent, hotReload: false })
+  await registry.loadAll()
+
+  const target = '905000000001@s.whatsapp.net'
+  const sender = '905000000002@s.whatsapp.net'
+  const chat = { warnings: {} }
+  const kicks = []
+  const replies = []
+  let botAdmin = false
+  const ctx = {
+    m: { chat: '123@g.us', mentionedJid: [target], quoted: null },
+    args: ['spam'],
+    text: 'spam',
+    sender,
+    chat,
+    sock: {
+      user: { id: '905000000003@s.whatsapp.net' },
+      groupParticipantsUpdate: async (...args) => kicks.push(args)
+    },
+    t: (key, params) => t('en', key, params),
+    reply: async (text, opts) => replies.push({ text, opts }),
+    getAdminStatus: async () => ({ botAdmin, isAdmin: true })
+  }
+
+  const gwarn = registry.find('gwarn')
+  await gwarn.run(ctx)
+  assert.equal(chat.warnings[target].count, 1)
+  assert.match(replies.at(-1).text, /1\/3 warnings/)
+  assert.deepEqual(chat.warnings[target].reasons, ['spam'])
+
+  await gwarn.run(ctx)
+  await gwarn.run(ctx)
+  assert.equal(chat.warnings[target].count, 3)
+  assert.equal(kicks.length, 0)
+  assert.match(replies.at(-1).text, /need to be a group admin/)
+
+  botAdmin = true
+  await gwarn.run(ctx)
+  assert.equal(kicks.length, 1)
+  assert.equal(kicks[0][2], 'remove')
+  assert.equal(chat.warnings[target], undefined)
+  assert.match(replies.at(-1).text, /reached 3 warnings and was removed/)
+
+  await registry.find('warnings').run(ctx)
+  assert.match(replies.at(-1).text, /has no warnings/)
+
+  chat.warnings[target] = { count: 2, reasons: ['spam', 'links'] }
+  await registry.find('warnings').run(ctx)
+  assert.match(replies.at(-1).text, /2\/3 warnings/)
+  assert.match(replies.at(-1).text, /spam; links/)
+
+  await registry.find('resetwarn').run(ctx)
+  assert.equal(chat.warnings[target], undefined)
+  assert.match(replies.at(-1).text, /Warnings cleared/)
 })
 
 test('bye toggles goodbye messages', async () => {

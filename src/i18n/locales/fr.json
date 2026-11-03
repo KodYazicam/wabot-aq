@@ -252,7 +252,15 @@
     "replyToMessage": "📎 Réponds au message que tu veux supprimer.",
     "delNoPerm": "🚫 Tu ne peux supprimer que tes propres messages (ou tu dois être admin du groupe).",
     "byeOn": "✅ Messages d'adieu ACTIVÉS.",
-    "byeOff": "❌ Messages d'adieu DÉSACTIVÉS."
+    "byeOff": "❌ Messages d'adieu DÉSACTIVÉS.",
+    "gwarned": "⚠️ {user} a maintenant {count}/3 avertissements.",
+    "gwarnKicked": "👢 {user} a atteint 3 avertissements et a été retiré.",
+    "gwarnLimitNoBot": "⚠️ {user} a atteint 3 avertissements, mais je dois être administrateur du groupe pour le retirer.",
+    "warningsNone": "✅ {user} n'a aucun avertissement.",
+    "warningsInfo": "⚠️ {user} a {count}/3 avertissements.\n📝 Raisons : {reasons}",
+    "noReason": "aucune raison enregistrée",
+    "warningsReset": "✅ Avertissements effacés pour {users}.",
+    "cantWarnSelf": "😅 Tu ne peux pas t'avertir toi-même ni avertir le bot."
   },
   "fun": {
     "ballUsage": "🎱 Pose-moi une question ! Utilisation : *{cmd} <question>*",

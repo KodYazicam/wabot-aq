@@ -31,8 +31,11 @@ test('ensureChat and settings merge defaults', () => {
   const db = new Database(tmpFile())
   const chat = db.ensureChat('123@g.us')
   assert.equal(chat.antilink, false)
+  assert.deepEqual(chat.warnings, {})
   chat.antilink = true
+  chat.warnings['905000000000@s.whatsapp.net'] = { count: 2, reasons: ['spam'] }
   assert.equal(db.ensureChat('123@g.us').antilink, true)
+  assert.equal(db.ensureChat('123@g.us').warnings['905000000000@s.whatsapp.net'].count, 2)
   assert.equal(db.settings('123@g.us').self, false)
 })
 
