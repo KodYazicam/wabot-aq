@@ -1,6 +1,6 @@
 # Command reference
 
-> Auto-generated from the command registry (`npm run docs`) — 95 commands, generated locale: `en` (de, en, es, fr, id, tr).
+> Auto-generated from the command registry (`npm run docs`) — 98 commands, generated locale: `en` (de, en, es, fr, id, tr).
 
 The prefix is configurable (`PREFIX` in .env, default `.`).
 
@@ -29,6 +29,9 @@ The prefix is configurable (`PREFIX` in .env, default `.`).
 |---|---|---|---|---|---|
 | `.profile` | `.me` | — | Show your profile card (level, XP, limits) | everyone | 3s |
 | `.daily` | `.claim` | — | Claim your daily usage limit | everyone | 5s |
+| `.weekly` | — | — | Claim your weekly usage limit | everyone | 5s |
+| `.transfer` | — | `@user <amount>` | Transfer usage limits to another user | everyone | 5s |
+| `.slots` | `.slot` | `<bet>` | Bet usage limits on a three-reel spin | everyone | 5s |
 | `.leaderboard` | `.rank`, `.lb`, `.top` | — | Top 10 most active users | everyone | 10s |
 | `.afk` | — | `[reason]` | Mark yourself as away (reason optional) | everyone | 3s |
 | `.level` | `.seviye` | — | Show your level and XP progress | everyone | 3s |

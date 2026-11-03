@@ -329,7 +329,19 @@
     "lbLine": "{rank}. {name} — niveau {level} ({exp} XP)",
     "lbFooter": "Gagne de l'XP en utilisant les commandes !",
     "afkSet": "💤 Tu es maintenant AFK.\n📝 Raison : {reason}",
-    "afkNoReason": "non précisée"
+    "afkNoReason": "non précisée",
+    "weeklyWait": "⏳ Tu as déjà récupéré la récompense de cette semaine.\nReviens dans {when}.",
+    "weeklyClaimed": "🗓️ Récompense hebdomadaire récupérée : +{amount} !\n🎟️ Ta limite : {limit}",
+    "transferUsage": "⌨️ Utilisation : *{prefix}transfer @utilisateur <montant>*\nExemple : *{prefix}transfer @ami 50*",
+    "transferInvalid": "❓ Indique un montant entre 1 et {max}.",
+    "transferSelf": "😅 Tu ne peux pas transférer des limites à toi-même ou au bot.",
+    "transferInsufficient": "🎟️ Tu n'as que {limit} limite(s).",
+    "transferred": "✅ *{amount}* limite(s) envoyée(s) à {user}.\n🎟️ Ta limite : {limit}",
+    "slotsInvalid": "🎰 Indique une mise entre 1 et {max}.",
+    "slotsNoLimit": "🎟️ Tu as besoin d'au moins {bet} limite(s) pour jouer (tu en as {limit}).",
+    "slotsWin": "🎰 {reels}\n\n💎 Triplé ! Tu as gagné *{payout}* limite(s) (net +{net}).\n🎟️ Ta limite : {limit}",
+    "slotsPush": "🎰 {reels}\n\n✨ Paire — ta mise est rendue.\n🎟️ Ta limite : {limit}",
+    "slotsLose": "🎰 {reels}\n\n💨 Aucune correspondance. Tu as perdu *{bet}* limite(s).\n🎟️ Ta limite : {limit}"
   },
   "owner": {
     "noTarget": "❓ Mentionne un utilisateur, réponds à son message ou donne un numéro.",

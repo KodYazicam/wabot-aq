@@ -87,7 +87,10 @@ export const config = {
     maxFileSize: envInt('MAX_FILE_SIZE', 100 * 1024 * 1024),
     commandCooldown: envInt('COMMAND_COOLDOWN', 3),
     dailyClaim: 20,
-    startLimit: 15
+    weeklyClaim: 100,
+    startLimit: 15,
+    maxTransfer: 1000,
+    maxSlotsBet: 1000
   },
 
   sticker: {

@@ -37,6 +37,7 @@ const USER_DEFAULTS = () => ({
   locale: '',
   banned: false,
   lastclaim: 0,
+  lastweekly: 0,
   premium: false,
   warnings: 0,
   msgs: 0,

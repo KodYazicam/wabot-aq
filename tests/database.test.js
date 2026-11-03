@@ -23,6 +23,7 @@ test('ensureUser fills defaults and clamps a negative limit', () => {
   assert.equal(user.name, 'Tester')
   assert.equal(user.limit, 15)
   assert.equal(user.banned, false)
+  assert.equal(user.lastweekly, 0)
   user.limit = -5
   assert.equal(db.ensureUser('905000000000@s.whatsapp.net').limit, 0)
 })
