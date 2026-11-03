@@ -128,7 +128,9 @@
     "wmUsage": "⌨️ Kullanım: medyaya *{prefix}stickerwm <paket|yazar>* ile yanıt ver",
     "replySticker": "📎 Önce bir sticker'a yanıt ver.",
     "exifUsage": "⌨️ Kullanım: *{prefix}setexif <paket|yazar>*",
-    "exifSet": "✅ Sticker imzası ayarlandı:\n📦 Paket: *{packname}*\n✍️ Yazar: *{author}*"
+    "exifSet": "✅ Sticker imzası ayarlandı:\n📦 Paket: *{packname}*\n✍️ Yazar: *{author}*",
+    "textUsage": "⌨️ Kullanım: *{prefix}{cmd} <metin>* — veya bir mesaja yanıt ver.",
+    "textTooLong": "✂️ Metin çok uzun — {max} karakterin altında tut."
   },
   "media": {
     "done": "✅ Bitti!",

@@ -128,7 +128,9 @@
     "wmUsage": "⌨️ Usage: reply to media with *{prefix}stickerwm <packname>|<author>*",
     "replySticker": "📎 Reply to a sticker first.",
     "exifUsage": "⌨️ Usage: *{prefix}setexif <packname>|<author>*",
-    "exifSet": "✅ Sticker watermark set:\n📦 Pack: *{packname}*\n✍️ Author: *{author}*"
+    "exifSet": "✅ Sticker watermark set:\n📦 Pack: *{packname}*\n✍️ Author: *{author}*",
+    "textUsage": "⌨️ Usage: *{prefix}{cmd} <text>* — or reply to a text message.",
+    "textTooLong": "✂️ Text is too long — keep it under {max} characters."
   },
   "media": {
     "done": "✅ Done!",

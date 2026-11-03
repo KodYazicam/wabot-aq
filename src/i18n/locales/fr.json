@@ -128,7 +128,9 @@
     "wmUsage": "⌨️ Utilisation : réponds à un média avec *{prefix}stickerwm <nom du pack>|<auteur>*",
     "replySticker": "📎 Réponds d'abord à un sticker.",
     "exifUsage": "⌨️ Utilisation : *{prefix}setexif <nom du pack>|<auteur>*",
-    "exifSet": "✅ Filigrane du sticker défini :\n📦 Pack : *{packname}*\n✍️ Auteur : *{author}*"
+    "exifSet": "✅ Filigrane du sticker défini :\n📦 Pack : *{packname}*\n✍️ Auteur : *{author}*",
+    "textUsage": "⌨️ Utilisation : *{prefix}{cmd} <texte>* — ou réponds à un message texte.",
+    "textTooLong": "✂️ Le texte est trop long — reste sous {max} caractères."
   },
   "media": {
     "done": "✅ Terminé !",

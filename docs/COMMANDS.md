@@ -1,6 +1,6 @@
 # Command reference
 
-> Auto-generated from the command registry (`npm run docs`) — 98 commands, generated locale: `en` (de, en, es, fr, id, tr).
+> Auto-generated from the command registry (`npm run docs`) — 100 commands, generated locale: `en` (de, en, es, fr, id, tr).
 
 The prefix is configurable (`PREFIX` in .env, default `.`).
 
@@ -156,6 +156,8 @@ The prefix is configurable (`PREFIX` in .env, default `.`).
 | `.sticker` | `.s`, `.st`, `.stiker`, `.stickergif` | `[url] [packname|author]` | Create a sticker from image/video (reply, media or URL) | everyone | 5s |
 | `.stickerwm` | `.swm`, `.wm` | `<packname|author>` | Create a sticker with custom watermark | everyone | 5s |
 | `.take` | — | `[packname|author]` | Restamp a sticker with your watermark (reply to sticker) | everyone | 5s |
+| `.ttp` | — | `<text>` | Create a transparent text sticker with a black outline | everyone | 5s |
+| `.brat` | — | `<text>` | Create a white text sticker in the brat style | everyone | 5s |
 
 ---
 
