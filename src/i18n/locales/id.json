@@ -326,7 +326,8 @@
     "joined": "✅ Bergabung ke grup *{group}*",
     "leaving": "👋 Sampai jumpa!",
     "warned": "⚠️ {users} telah diperingatkan. 3 peringatan = larangan.",
-    "warnBanned": "🚫 {users} mencapai 3 peringatan dan dilarang."
+    "warnBanned": "🚫 {users} mencapai 3 peringatan dan dilarang.",
+    "dbStats": "🗄️ *Database*\n\n📁 File: {file}\n💾 Ukuran: {size}\n👥 Pengguna: {users}\n💬 Chat: {chats}\n⚙️ Pengaturan: {settings}\n📊 Statistik perintah: {stats}\n\n⏱️ Autosave: {autosave}\n✅ Penulisan: {saves}\n⏭️ Dilewati: {skips}\n⚡ Penulisan terakhir: {lastSaveMs}ms\n🕒 Terakhir disimpan: {lastSaved}\n🕒 Pemeriksaan terakhir: {lastChecked}\n\n🤖 Aktif: {uptime}"
   },
   "example": {
     "echo": "Kamu bilang: *{text}*"

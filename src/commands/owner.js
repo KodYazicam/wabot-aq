@@ -1,6 +1,6 @@
 /** Owner-only commands: bans, premium, broadcast, shell, group join/leave. */
 import { exec } from 'node:child_process'
-import { mention, isUrl, redactSecrets } from '../lib/utils.js'
+import { mention, isUrl, redactSecrets, fmtBytes, msToTime } from '../lib/utils.js'
 
 function run (cmd, timeout = 30_000) {
   return new Promise((resolve) => {
@@ -221,6 +221,33 @@ export const commands = [
         return ctx.reply(ctx.t('owner.warnBanned', { users: banned.map(mention).join(', ') }), { mentions: banned })
       }
       await ctx.reply(ctx.t('owner.warned', { users: targets.map(mention).join(', ') }), { mentions: targets })
+    }
+  },
+  {
+    name: 'dbstats',
+    aliases: ['dbinfo'],
+    category: 'owner',
+    description: 'Show database size and save metrics',
+    permission: 'owner',
+    async run (ctx) {
+      const info = ctx.db.info()
+      const formatTime = (timestamp) =>
+        timestamp ? new Date(timestamp).toLocaleString(ctx.locale) : '—'
+      await ctx.reply(ctx.t('owner.dbStats', {
+        file: info.file,
+        size: fmtBytes(info.size),
+        users: info.users,
+        chats: info.chats,
+        settings: info.settings,
+        stats: info.stats,
+        autosave: msToTime(info.autosaveMs),
+        saves: info.saves,
+        skips: info.skips,
+        lastSaveMs: info.lastSaveMs,
+        lastSaved: formatTime(info.lastSavedAt),
+        lastChecked: formatTime(info.lastCheckedAt),
+        uptime: msToTime(process.uptime() * 1000)
+      }))
     }
   }
 ]

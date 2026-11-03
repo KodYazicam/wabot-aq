@@ -55,9 +55,17 @@ export class Database {
     this.data = { users: {}, chats: {}, settings: {}, stats: {} }
     this._timer = null
     this._saving = false
+    this._autosaveMs = 0
+    this._lastSaved = null
+    this._lastSavedAt = 0
+    this._lastCheckedAt = 0
+    this._lastSaveMs = 0
+    this._saves = 0
+    this._skips = 0
   }
 
   async load () {
+    this._lastSaved = null
     try {
       if (fs.existsSync(this.file)) {
         // boot backup — cheap insurance against corruption
@@ -88,17 +96,38 @@ export class Database {
       this.data = { users: {}, chats: {}, settings: {}, stats: {} }
       throw new Error(`database unreadable: ${e.message}`)
     }
+    this._lastSaved = JSON.stringify(this.data, null, 2)
     return this.data
   }
 
-  async save () {
-    if (this._saving) return
+  /**
+   * Persist the in-memory store. The payload is serialized once and compared
+   * with the last successful write; an unchanged database skips disk I/O
+   * unless `force` is requested.
+   * @returns {Promise<boolean>} true when the file was written
+   */
+  async save ({ force = false } = {}) {
+    if (this._saving) return false
     this._saving = true
+    const started = Date.now()
+    this._lastCheckedAt = started
     try {
+      const json = JSON.stringify(this.data, null, 2)
+      if (!force && json === this._lastSaved) {
+        this._skips++
+        this._lastSaveMs = Date.now() - started
+        return false
+      }
+
       const tmp = `${this.file}.tmp`
       fs.mkdirSync(path.dirname(this.file), { recursive: true })
-      fs.writeFileSync(tmp, JSON.stringify(this.data, null, 2))
+      fs.writeFileSync(tmp, json)
       fs.renameSync(tmp, this.file)
+      this._lastSaved = json
+      this._lastSavedAt = Date.now()
+      this._lastSaveMs = this._lastSavedAt - started
+      this._saves++
+      return true
     } finally {
       this._saving = false
     }
@@ -106,6 +135,7 @@ export class Database {
 
   startAutosave (intervalMs = 60_000) {
     if (this._timer) clearInterval(this._timer)
+    this._autosaveMs = intervalMs
     this._timer = setInterval(() => this.save().catch(() => {}), intervalMs)
     this._timer.unref?.()
   }
@@ -113,6 +143,26 @@ export class Database {
   stop () {
     if (this._timer) clearInterval(this._timer)
     return this.save()
+  }
+
+  /** Snapshot for diagnostics (`.dbstats`) without exposing the data itself. */
+  info () {
+    let size = 0
+    try { size = fs.statSync(this.file).size } catch { /* not written yet */ }
+    return {
+      file: this.file,
+      size,
+      users: Object.keys(this.data.users).length,
+      chats: Object.keys(this.data.chats).length,
+      settings: Object.keys(this.data.settings).length,
+      stats: Object.keys(this.data.stats).length,
+      autosaveMs: this._autosaveMs,
+      lastSavedAt: this._lastSavedAt,
+      lastCheckedAt: this._lastCheckedAt,
+      lastSaveMs: this._lastSaveMs,
+      saves: this._saves,
+      skips: this._skips
+    }
   }
 
   // ---- Record creation / normalization (same spirit as the old handler) ----

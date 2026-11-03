@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/KodYazicam/wabot-aq.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-green.svg)](package.json)
 
-🌍 en · tr · id · es &nbsp;|&nbsp; ⚡ 86 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
+🌍 en · tr · id · es &nbsp;|&nbsp; ⚡ 87 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
 
 </div>
 
@@ -211,7 +211,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 
 ## All commands
 
-86 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
+87 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
 
 | Category | Commands |
 |---|---|
@@ -225,7 +225,7 @@ Missing keys fall back automatically: *user → group → global → English*. *
 | Groups | `tagall` `hidetag` `kick` `add` `promote` `demote` `grouplink` `revoke` `groupinfo` `poll` `welcome` `setwelcome` `setbye` `antilink` `antidelete` `detect` `opengroup` `closegroup` `setsubject` `setdesc` `del` |
 | Fun | `8ball` `pick` `rate` `match` `joke` `quote` `russianroulette` |
 | Profile & RPG | `profile` `level` `daily` `leaderboard` `afk` |
-| Owner | `banuser` `unbanuser` `banchat` `unbanchat` `addprem` `delprem` `broadcast` `bcgroup` `exec` `join` `leave` `warn` |
+| Owner | `banuser` `unbanuser` `banchat` `unbanchat` `addprem` `delprem` `broadcast` `bcgroup` `exec` `join` `leave` `warn` `dbstats` |
 
 ## Writing your own command (step by step)
 
@@ -288,7 +288,7 @@ Plugins are trusted local code — there is no sandbox. In Docker, `docker-compo
 
 ```
 ┌────────────┐   messages    ┌─────────────┐   commands    ┌──────────────┐
-│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  86 commands │
+│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  87 commands │
 │ (multi-dev)│    QR pair    │  (socket)   │  hot-reload   │  src/commands│
 └────────────┘               └─────────────┘               └──────────────┘
                                   │                              │
@@ -300,7 +300,7 @@ Plugins are trusted local code — there is no sandbox. In Docker, `docker-compo
               └─────┬─────┘ └──────────┘ └─────────────┘ └─────────────┘
                     │
               ┌─────▼──────────┐
-              │ data/database  │  JSON, atomic writes, auto-backup
+              │ data/database  │  JSON, atomic writes, skip unchanged
               └────────────────┘
 ```
 

@@ -326,7 +326,8 @@
     "joined": "✅ Me uní al grupo *{group}*",
     "leaving": "👋 ¡Adiós!",
     "warned": "⚠️ {users} recibió un aviso. 3 avisos = baneo.",
-    "warnBanned": "🚫 {users} alcanzó 3 avisos y fue baneado."
+    "warnBanned": "🚫 {users} alcanzó 3 avisos y fue baneado.",
+    "dbStats": "🗄️ *Base de datos*\n\n📁 Archivo: {file}\n💾 Tamaño: {size}\n👥 Usuarios: {users}\n💬 Chats: {chats}\n⚙️ Ajustes: {settings}\n📊 Estadísticas: {stats}\n\n⏱️ Guardado automático: {autosave}\n✅ Escrituras: {saves}\n⏭️ Omitidas: {skips}\n⚡ Última escritura: {lastSaveMs}ms\n🕒 Último guardado: {lastSaved}\n🕒 Última comprobación: {lastChecked}\n\n🤖 Activo: {uptime}"
   },
   "example": {
     "echo": "Dijiste: *{text}*"

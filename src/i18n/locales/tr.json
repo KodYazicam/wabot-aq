@@ -326,7 +326,8 @@
     "joined": "✅ *{group}* grubuna katıldım",
     "leaving": "👋 Hoşça kalın!",
     "warned": "⚠️ {users} uyarıldı. 3 uyarı = yasak.",
-    "warnBanned": "🚫 {users} 3 uyarıya ulaştı ve yasaklandı."
+    "warnBanned": "🚫 {users} 3 uyarıya ulaştı ve yasaklandı.",
+    "dbStats": "🗄️ *Veritabanı*\n\n📁 Dosya: {file}\n💾 Boyut: {size}\n👥 Kullanıcı: {users}\n💬 Sohbet: {chats}\n⚙️ Ayar: {settings}\n📊 Komut istatistiği: {stats}\n\n⏱️ Otomatik kayıt: {autosave}\n✅ Yazma: {saves}\n⏭️ Atlanan: {skips}\n⚡ Son yazma: {lastSaveMs}ms\n🕒 Son kayıt: {lastSaved}\n🕒 Son kontrol: {lastChecked}\n\n🤖 Çalışma: {uptime}"
   },
   "example": {
     "echo": "Şunu yazdın: *{text}*"

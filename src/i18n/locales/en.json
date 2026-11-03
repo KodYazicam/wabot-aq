@@ -326,7 +326,8 @@
     "joined": "✅ Joined group *{group}*",
     "leaving": "👋 Goodbye!",
     "warned": "⚠️ {users} has been warned. 3 warnings = ban.",
-    "warnBanned": "🚫 {users} reached 3 warnings and was banned."
+    "warnBanned": "🚫 {users} reached 3 warnings and was banned.",
+    "dbStats": "🗄️ *Database*\n\n📁 File: {file}\n💾 Size: {size}\n👥 Users: {users}\n💬 Chats: {chats}\n⚙️ Settings: {settings}\n📊 Command stats: {stats}\n\n⏱️ Autosave: {autosave}\n✅ Writes: {saves}\n⏭️ Skipped: {skips}\n⚡ Last write: {lastSaveMs}ms\n🕒 Last saved: {lastSaved}\n🕒 Last check: {lastChecked}\n\n🤖 Uptime: {uptime}"
   },
   "example": {
     "echo": "You said: *{text}*"
