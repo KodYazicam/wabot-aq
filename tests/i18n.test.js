@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -79,3 +80,47 @@ test('array keys and role tiers work', () => {
 test('array helper returns an empty list for strings', () => {
   assert.deepEqual(tArray('en', 'general.error'), [])
 })
+
+test('plugin locales are namespaced and only merge into core locales', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wabot-plugin-locales-'))
+  const hello = path.join(dir, 'hello')
+  fs.mkdirSync(hello)
+  fs.writeFileSync(
+    path.join(hello, 'en.json'),
+    JSON.stringify({ greeting: 'Hello {name}', nested: { line: 'Nested line' } })
+  )
+  fs.writeFileSync(
+    path.join(hello, 'tr.json'),
+    JSON.stringify({ greeting: 'Merhaba {name}' })
+  )
+  fs.writeFileSync(path.join(hello, 'xx.json'), JSON.stringify({ greeting: 'Nope' }))
+
+  const broken = path.join(dir, 'broken')
+  fs.mkdirSync(broken)
+  fs.writeFileSync(path.join(broken, 'en.json'), '{not json')
+
+  for (const name of ['a.b', 'a_b']) {
+    const collision = path.join(dir, name)
+    fs.mkdirSync(collision)
+    fs.writeFileSync(path.join(collision, 'en.json'), JSON.stringify({ greeting: name }))
+  }
+
+  const warnings = []
+  initI18n({
+    locale: 'en',
+    pluginLocaleDir: dir,
+    logger: { warn: (message) => warnings.push(String(message)) }
+  })
+
+  assert.equal(t('en', 'plugin.hello.greeting', { name: 'Ada' }), 'Hello Ada')
+  assert.equal(t('tr', 'plugin.hello.greeting', { name: 'Ada' }), 'Merhaba Ada')
+  assert.equal(t('en', 'plugin.hello.nested.line'), 'Nested line')
+  assert.equal(t('de', 'plugin.hello.greeting', { name: 'Ada' }), 'Hello Ada')
+  assert.equal(t('en', 'plugin.hello.xx'), 'plugin.hello.xx')
+  assert.equal(t('en', 'plugin.broken.greeting'), 'plugin.broken.greeting')
+  assert.ok(warnings.some((warning) => warning.includes('unsupported locale')))
+  assert.ok(warnings.some((warning) => warning.includes('failed to load')))
+  assert.ok(warnings.some((warning) => warning.includes('already exists')))
+  assert.deepEqual(availableLocales(), ['de', 'en', 'es', 'fr', 'id', 'tr'])
+})
+

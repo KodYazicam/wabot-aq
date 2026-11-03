@@ -42,6 +42,7 @@ npm start
 | `src/core/commands.js` | Command loader, registry, hot reload |
 | `src/commands/*.js` | Bot features; one file can export several commands |
 | `plugins/*.js` | Optional local commands loaded after the built-ins |
+| `plugins/locales/*/<code>.json` | Optional per-plugin translations (namespaced) |
 | `src/i18n/locales/*.json` | User-facing text for en/es/id/tr/de/fr |
 | `src/lib/` | Database, media, YouTube, logging, and utility helpers |
 | `tests/` | Node test-runner suites (no WhatsApp or network required) |
@@ -69,7 +70,9 @@ Useful `ctx` fields include `m`, `sock`, `db`, `config`, `args`, `text`, `t()`, 
 
 If a command is personal and should not be part of the upstream tree, put it in `plugins/` instead of `src/commands/`. Copy [`plugins/_example.js`](plugins/_example.js) to a `.js` file (without the leading underscore), export the same `commands` array, and use `.plugins` to confirm it loaded. Both directories are hot-reloaded.
 
-Plugins are trusted local code and are loaded after the built-ins, so they can override a name or alias. The registry logs a collision warning. There is no per-plugin locale loader yet; use plain text, an existing locale key, or propose a key in the core locale files.
+Plugins are trusted local code and are loaded after the built-ins, so they can override a name or alias. The registry logs a collision warning.
+
+Plugins can ship translations in `plugins/locales/<plugin>/<code>.json`. The keys are merged into the runtime catalog as `plugin.<plugin>.<key>`, so a command can call `ctx.t('plugin.hello.greeting', { name })`. Only the six core locale codes are accepted; missing languages fall back to English. Locale JSON is loaded at startup, so restart after editing it. See [`plugins/README.md`](plugins/README.md) for a full example.
 
 ## Code style
 

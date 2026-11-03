@@ -288,6 +288,15 @@ Plugin files use the same `commands` export and `ctx` contract as built-ins. The
 
 Plugins are trusted local code — there is no sandbox. In Docker, `docker-compose.yml` mounts `./plugins` into the container, so the directory survives rebuilds and can be edited on the host. See [`plugins/README.md`](plugins/README.md).
 
+Plugins can ship their own translations without editing the core locale files:
+
+```text
+plugins/locales/hello/en.json   → ctx.t('plugin.hello.greeting')
+plugins/locales/hello/tr.json
+```
+
+Keys are namespaced as `plugin.<plugin>.<key>`; missing languages fall back to English. Locale JSON is read at startup, so restart after changing it.
+
 ## How it works (architecture)
 
 ```
