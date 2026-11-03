@@ -41,6 +41,7 @@ npm start
 | `src/core/handler.js` | Message pipeline: middleware, permissions, locale, execution |
 | `src/core/commands.js` | Command loader, registry, hot reload |
 | `src/commands/*.js` | Bot features; one file can export several commands |
+| `plugins/*.js` | Optional local commands loaded after the built-ins |
 | `src/i18n/locales/*.json` | User-facing text for en/es/id/tr |
 | `src/lib/` | Database, media, YouTube, logging, and utility helpers |
 | `tests/` | Node test-runner suites (no WhatsApp or network required) |
@@ -55,6 +56,12 @@ npm start
 5. Run `npm test`. The command-registry test loads every bundled command and rejects duplicate names or aliases.
 
 Useful `ctx` fields include `m`, `sock`, `db`, `config`, `args`, `text`, `t()`, `reply()`, `user`, `chat`, `locale`, `isOwner`, and `getGroupMetadata()`.
+
+### Local plugins
+
+If a command is personal and should not be part of the upstream tree, put it in `plugins/` instead of `src/commands/`. Copy [`plugins/_example.js`](plugins/_example.js) to a `.js` file (without the leading underscore), export the same `commands` array, and use `.plugins` to confirm it loaded. Both directories are hot-reloaded.
+
+Plugins are trusted local code and are loaded after the built-ins, so they can override a name or alias. The registry logs a collision warning. There is no per-plugin locale loader yet; use plain text, an existing locale key, or propose a key in the core locale files.
 
 ## Code style
 

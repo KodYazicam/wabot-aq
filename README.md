@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/github/license/KodYazicam/wabot-aq.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-green.svg)](package.json)
 
-🌍 en · tr · id · es &nbsp;|&nbsp; ⚡ 85 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
+🌍 en · tr · id · es &nbsp;|&nbsp; ⚡ 86 commands & 80+ aliases &nbsp;|&nbsp; 🐳 Docker-ready
 
 </div>
 
@@ -211,11 +211,11 @@ Missing keys fall back automatically: *user → group → global → English*. *
 
 ## All commands
 
-85 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
+86 commands with 80+ aliases in 11 categories — see the **[complete reference](docs/COMMANDS.md)** (auto-generated, always in sync). Summary:
 
 | Category | Commands |
 |---|---|
-| Main | `menu` `help` `ping` `uptime` `botinfo` `stats` |
+| Main | `menu` `help` `ping` `uptime` `botinfo` `plugins` `stats` |
 | Settings | `mode` `setting` `setprefix` `setbotname` `setpp` `lang` |
 | Stickers | `sticker` (`s`) `stickerwm` `take` `setexif` |
 | Media | `toimg` `tomp4` `tomp3` `tovn` `fixvideo` |
@@ -271,11 +271,24 @@ Then use `ctx.reply(ctx.t('fun.shoutResult', { text: ctx.text }))` instead of ha
 
 A full annotated template is in [`src/commands/_example.js`](src/commands/_example.js).
 
+### Local plugins (no core edits)
+
+For commands you do not want to upstream, use the optional `plugins/` directory:
+
+```bash
+cp plugins/_example.js plugins/hello.js
+# edit it, save it — the bot hot-reloads it
+```
+
+Plugin files use the same `commands` export and `ctx` contract as built-ins. They are loaded after `src/commands/`, so you can add or override a name (the registry logs a warning on collisions). Files starting with `_` are skipped. Use `.plugins` to list what is currently loaded.
+
+Plugins are trusted local code — there is no sandbox. In Docker, `docker-compose.yml` mounts `./plugins` into the container, so the directory survives rebuilds and can be edited on the host. See [`plugins/README.md`](plugins/README.md).
+
 ## How it works (architecture)
 
 ```
 ┌────────────┐   messages    ┌─────────────┐   commands    ┌──────────────┐
-│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  85 commands │
+│  WhatsApp  │ ◄───────────► │  Baileys 7  │ ────────────► │  86 commands │
 │ (multi-dev)│    QR pair    │  (socket)   │  hot-reload   │  src/commands│
 └────────────┘               └─────────────┘               └──────────────┘
                                   │                              │

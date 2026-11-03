@@ -89,7 +89,10 @@
     "botinfo": "🤖 *{bot}* v{version}\n\n🖥️ Platform: {platform}\n🟢 Node: {node}\n⚡ Prefix: {prefix}\n🌍 Language: {locale} (available: {locales})\n\n👥 Users: {users}\n💬 Chats: {chats}\n👥 Groups: {groups}\n⚡ Commands: {commands}\n📊 Commands used: {used}",
     "statsEmpty": "📊 No command statistics yet.",
     "statsHeader": "📊 *Most used commands*",
-    "statsLine": "{rank}. *{cmd}* — {total}× ({success} ✓)"
+    "statsLine": "{rank}. *{cmd}* — {total}× ({success} ✓)",
+    "pluginsEmpty": "🔌 No external plugins found.\n\nCreate `plugins/my-plugin.js` or copy `plugins/_example.js` to get started.",
+    "pluginsHeader": "🔌 *External plugins* ({count} file(s))",
+    "pluginsLine": "• *{file}* — {commands}"
   },
   "lang": {
     "show": "🌍 Current language: *{current}*\n\nAvailable: {list}\n\n💡 Change with: {examples}\n(admins in groups set the group language; in private chat you set your own)",
@@ -327,5 +330,8 @@
   },
   "example": {
     "echo": "You said: *{text}*"
+  },
+  "plugins": {
+    "hello": "👋 Hello {name}! This command comes from an external plugin."
   }
 }

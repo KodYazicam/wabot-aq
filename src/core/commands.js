@@ -1,7 +1,7 @@
 /**
- * Command loader & registry. Replaces the old plugins/ folder: files in
- * src/commands/ export a `commands` array. File changes are watched and
- * hot-reloaded (optional).
+ * Command loader & registry. Files in src/commands/ export a `commands` array.
+ * Optional extra directories (plugins/) are loaded after the built-in tree,
+ * and every loaded directory is watched for hot reload when enabled.
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -9,24 +9,40 @@ import { EventEmitter } from 'node:events'
 import { pathToFileURL } from 'node:url'
 
 export class CommandRegistry extends EventEmitter {
-  constructor (dir, { logger, hotReload = true } = {}) {
+  constructor (dir, { logger, hotReload = true, extraDirs = [] } = {}) {
     super()
-    this.dir = dir
+    this.dir = path.resolve(dir)
+    this.extraDirs = extraDirs.map(d => path.resolve(d))
+    this.dirs = [this.dir, ...this.extraDirs]
     this.logger = logger
     this.hotReload = hotReload
     /** @type {Map<string, object>} name → command definition */
     this.commands = new Map()
     /** @type {Map<string, string[]>} file → command names */
     this.files = new Map()
-    this._watcher = null
+    this._watchers = []
   }
 
   async loadAll () {
-    const files = fs.readdirSync(this.dir).filter(f => f.endsWith('.js') && !f.startsWith('_'))
-    for (const file of files) {
-      await this.loadFile(path.join(this.dir, file))
+    let files = 0
+    let loadedDirs = 0
+
+    for (const dir of this.dirs) {
+      if (!fs.existsSync(dir)) {
+        if (dir === this.dir) throw new Error(`command directory not found: ${dir}`)
+        this.logger?.info(`plugin directory not found: ${dir} (skipped)`)
+        continue
+      }
+
+      const entries = fs.readdirSync(dir).filter(f => f.endsWith('.js') && !f.startsWith('_'))
+      for (const file of entries) {
+        await this.loadFile(path.join(dir, file))
+        files++
+      }
+      loadedDirs++
     }
-    this.logger?.info(`loaded ${this.commands.size} commands (${files.length} files)`)
+
+    this.logger?.info(`loaded ${this.commands.size} commands (${files} files from ${loadedDirs} directories)`)
     if (this.hotReload) this.watch()
     return this
   }
@@ -92,20 +108,27 @@ export class CommandRegistry extends EventEmitter {
   }
 
   watch () {
-    if (this._watcher) return
+    if (this._watchers.length) return
     let timer = null
-    try {
-      this._watcher = fs.watch(this.dir, { persistent: false }, (event, filename) => {
-        if (!filename?.endsWith('.js')) return
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          this.logger?.info(`change detected: ${filename}, reloading`)
-          this.loadFile(path.join(this.dir, filename))
-            .then(() => this.emit('reloaded', filename))
-            .catch(() => {})
-        }, 300)
-      })
-    } catch { /* watch unsupported — ignore silently */ }
+
+    for (const dir of this.dirs) {
+      if (!fs.existsSync(dir)) continue
+      try {
+        const watcher = fs.watch(dir, { persistent: false }, (event, filename) => {
+          if (!filename?.endsWith('.js')) return
+          clearTimeout(timer)
+          timer = setTimeout(() => {
+            const file = path.join(dir, filename)
+            this.logger?.info(`change detected: ${file}, reloading`)
+            this.loadFile(file)
+              .then(() => this.emit('reloaded', filename))
+              .catch(() => {})
+          }, 300)
+        })
+        watcher.on?.('error', () => { /* watch errors are non-fatal */ })
+        this._watchers.push(watcher)
+      } catch { /* watch unsupported — ignore silently */ }
+    }
   }
 }
 

@@ -1,5 +1,6 @@
-/** Core commands: menu, ping, uptime, bot info, usage stats. */
+/** Core commands: menu, ping, uptime, bot info, plugins, usage stats. */
 import os from 'node:os'
+import path from 'node:path'
 import { getBotState } from '../core/connection.js'
 import { getLevel, getNextLevelExp } from '../lib/database.js'
 import { msToTime, fmtBytes } from '../lib/utils.js'
@@ -120,6 +121,29 @@ export const commands = [
         locale: ctx.locale,
         locales: (await import('../i18n/index.js')).availableLocales().join(', ')
       }))
+    }
+  },
+  {
+    name: 'plugins',
+    aliases: ['plugin'],
+    category: 'core',
+    description: 'List commands loaded from the plugins/ directory',
+    async run (ctx) {
+      const external = [...ctx.registry.files.entries()]
+        .filter(([file]) => !file.startsWith(ctx.registry.dir + path.sep))
+        .sort(([a], [b]) => a.localeCompare(b))
+
+      if (!external.length) return ctx.reply(ctx.t('core.pluginsEmpty'))
+
+      const lines = [ctx.t('core.pluginsHeader', { count: external.length })]
+      for (const [file, names] of external) {
+        const defs = [...new Set(names.map(name => ctx.registry.find(name)).filter(Boolean))]
+        lines.push(ctx.t('core.pluginsLine', {
+          file: path.basename(file),
+          commands: defs.map(def => def.name).join(', ') || '—'
+        }))
+      }
+      await ctx.reply(lines.join('\n'))
     }
   },
   {
